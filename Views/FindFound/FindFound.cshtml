@@ -1,0 +1,437 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <title>Asset - Find & Found</title>
+
+</head>
+<body class="sb-nav-fixed">
+
+    <main>
+        <div class="container-fluid">
+
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="~/Home/Index">Asset</a></li>
+                <li class="breadcrumb-item active">Find & Found</li>
+            </ol>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table mr-1"></i>
+                    Find & Found
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <select class="form-control" id="CountDropdown" name="CountDropdown"></select>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <a class="nav-item nav-link active" id="nav-Summary-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Found Summary</a>
+                                    <a class="nav-item nav-link" id="nav-Found-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Found</a>
+                                    <a class="nav-item nav-link" id="nav-NotFound-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Not Found</a>
+                                    <a class="nav-item nav-link" id="nav-MissLocation-tab" data-toggle="tab" href="#nav-miss" role="tab" aria-controls="nav-contact" aria-selected="false">Miss Location</a>
+                                </div>
+                            </nav>
+                            
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                                    <div class="card " style="padding: 10px">
+                                        <div class="card-header">
+                                            Summary By Location
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered nowrap" id="LocationTable" width="100%" cellspacing="0">
+                                                    <thead>
+
+                                                    </thead>
+
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card ">
+                                        <div class="card-body"><canvas id="ChartLocation" width="100%" height="40"></canvas>
+                                        </div>
+                                    </div>
+                                    <hr/>
+
+                                    <div class="card ">
+                                        <div class="card-header">
+                                            Summary By Category
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered nowrap" id="CateTable" width="100%" cellspacing="0">
+                                                    <thead>
+
+                                                    </thead>
+
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card ">
+                                        <div class="card-body"><canvas id="ChartCate" width="100%" height="40"></canvas></div>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                   <div align="center" style="padding-top: 20px">No data to display</div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+
+
+                                    <div class="card ">
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered nowrap" id="notFoundTable" width="100%" cellspacing="0">
+                                                    <thead>
+
+                                                    </thead>
+
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="tab-pane fade" id="nav-miss" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                    <div align="center" style="padding-top: 20px">No data to display</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+   
+
+
+</html>
+<script>
+
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:53990/project/getall",
+        data: "{}",
+        success: function(data) {
+            var s;
+            for (var i = 0; i < data.length; i++) {
+
+                s += '<option value="' + data[i].CountID + '">' + data[i].CountID + ' | ' + data[i].CountDesc + '</option>';
+
+            }
+            $("#CountDropdown").html(s);
+        }
+
+    });
+
+
+    $(document).ready(function() {
+
+        var cs = $("#CountDropdown").val();
+
+        $('#LocationTable').DataTable({
+            ajax: {
+                url: "http://localhost:53990/UserConfig/GetLocationAll",
+                type: "get",
+                dataSrc: ''
+            },
+            columns: [
+                { data: "CompanyID", title: "Location ID", width: '100px' },
+                { data: "Name1", title: "Location Name" },
+                {
+                    data: null,
+                    title: "Project ID",
+                    render: function(data, type, row) {
+                        if (type === 'display') {
+                            return cs;
+                        }
+                        return data;
+                    },
+                    width: '100px'
+                },
+                {
+                    data: "SalePersonID",
+                    title: "Found",
+                    width: '30px',
+                    render: function (data, type, row) {
+                        if (data === '') {
+                            return 0;
+                        }
+                        return data;
+                    }
+                },
+                {
+                    data: "Remark1",
+                    title: "Not Found",
+                    width: '30px',
+                    render: function (data, type, row) {
+                        if (data === '') {
+                            return 0;
+                        }
+                        return data;
+                    }
+                },
+                {
+                    data: "Remark2",
+                    title: "Miss Location",
+                    width: '30px',
+                    render: function (data, type, row) {
+                        if (data === '') {
+                            return 0;
+                        }
+                        return data;
+                    }
+                },
+            ],
+            select: true,
+            dom: "Bfrtip",
+            buttons: [
+                //{
+                //    text: "New"
+
+
+                //},
+                { extend: "excel" }
+            ]
+        });
+
+        $('#CateTable').DataTable({
+            ajax: {
+                url: "http://localhost:53990/Project/getCate?id=" + $("#CountDropdown").val(),
+                type: "get",
+                dataSrc: ''
+            },
+            columns: [
+                { data: "ItemCate", title: "Asset Cate" },
+                {
+                    data: "ItemCate",
+                    title: "Found",
+                    width: '30px',
+                    render: function(data, type, row) {
+
+                        return '<div align="center">0</div>';
+
+                    }
+                },
+                {
+                    data: "ItemCate",
+                    title: "Not Found",
+                    width: '30px',
+                    render: function (data, type, row) {
+
+                        return '<div align="center">'+data.length+'</div>';
+
+                    }
+                },
+                {
+                    data: "ItemCate",
+                    title: "Miss Location",
+                    width: '30px',
+                    render: function(data, type, row) {
+                        return '<div align="center">0</div>';
+
+                    }
+                },
+            ],
+            select: true,
+            dom: "Bfrtip",
+            buttons: [
+                //{
+                //    text: "New"
+
+
+                //},
+                { extend: "excel" }
+            ]
+        });
+        $('#notFoundTable').DataTable({
+            ajax: {
+                url: "http://localhost:53990/Project/getFound?id=" + $("#CountDropdown").val(),
+                type: "get",
+                dataSrc: ''
+            },
+            columns: [
+                { data: "ItemID", title: "Asset ID" },
+                
+                {
+                    data: "NameTH",
+                    title: "Description",
+                    width: '30px'
+                },
+                {
+                    data: "CompanyID",
+                    title: "Location",
+                    width: '30px'
+                },
+                {
+                    data:"OwnerName",
+                    title : "Owner Name"
+                },
+                {
+                    data:'CostCenter',
+                    title:"Cost Center"
+                }
+            ],
+            select: true,
+            dom: "Bfrtip",
+            buttons: [
+                //{
+                //    text: "New"
+
+
+                //},
+                { extend: "excel" }
+            ]
+        });
+
+
+        debugger;
+
+        $.fn.dataTable.ext.errMode = 'throw';
+    });
+
+</script>
+<script>
+    // Set new default font family and font color to mimic Bootstrap's default styling
+    Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+    Chart.defaults.global.defaultFontColor = '#292b2c';
+
+    // Bar Chart Example
+    var ctx = document.getElementById("ChartLocation");
+    var myLineChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["0010", "0020", "0030", "0040", "1000", "1010", "1020", "1030", "2000", "2010", "2020", "3010", "3020", "3030", "3040", "3050", "3060", "4000", "5000", "6000", "7000", "8000", "9000", "9006"],
+            datasets: [{
+                label: ['Found'],
+                backgroundColor: ['#007bff'],
+                borderColor: "rgba(2,117,216,1)",
+                data: [0]
+            },
+            {
+                label: [ 'Not Found'],
+                backgroundColor: ['#dc3545'],
+                borderColor: "rgba(2,117,216,1)",
+                data: [8744,10,10]
+            },
+            {
+                label: ['Miss Location'],
+                backgroundColor: ['#ffc107'],
+                borderColor: "rgba(2,117,216,1)",
+                data: [0,0]
+            }
+            ]
+
+            
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    time: {
+                        unit: 'Location'
+                    },
+                    gridLines: {
+                        display: false
+                    },
+                    ticks: {
+                        maxTicksLimit: 6
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        max: 10000,
+                        maxTicksLimit: 10
+                    },
+                    gridLines: {
+                        display: true
+                    }
+                }],
+            },
+            legend: {
+                display: false
+            }
+        }
+    });
+
+
+
+    var ctx2 = document.getElementById("ChartCate");
+    var myLineChart2 = new Chart(ctx2, {
+        type: 'bar',
+
+        data: {
+            labels: ["APPLIANCE7", "ARO4", "AVEQP3", "AVEQP7", "BLDGIMP20", "BLDGIMP20C", "BUILDING30", "COMPUTER3", "COMPUTER5", "CURRDEVEL5", "FIXTURES7", "FURNITURE7", "HVAC3", "HVAC8", "KITCHEQP3", "LABEQUIP5", "LAND", "LNDIMPRV10", "LSEQUIP3", "OFFEQUIP5", "PRINTERS3", "SFTWDEVEL3", "SFTWPURCH3", "SPORTSEQP7", "TELECOM3", "TRUCK", "VEHICLES7", "WEBSITE3"],
+            datasets: [{
+                label: ['Found'],
+                backgroundColor: ['#007bff'],
+                borderColor: "rgba(2,117,216,1)",
+                data: [0]
+            },
+            {
+                label: ['Not Found'],
+                backgroundColor: '#dc3545',
+                borderColor: "rgba(2,117,216,1)",
+                data: [10,4,6,6,9,10,10,9,9,10,9,10,5,5,9,9,4,10,8,9,9,10,10,10,8,5,9,8]
+            },
+            {
+                label: ['Miss Location'],
+                backgroundColor: ['#ffc107'],
+                borderColor: "rgba(2,117,216,1)",
+                data: [0]
+            }
+            ]
+
+
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    time: {
+                        unit: 'Cate'
+                    },
+                    gridLines: {
+                        display: false
+                    },
+                    ticks: {
+                        maxTicksLimit: 6
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        min: 0,
+                        max: 20,
+                        maxTicksLimit: 10
+                    },
+                    gridLines: {
+                        display: true
+                    }
+                }],
+            },
+            legend: {
+                display: false
+            }
+        }
+    });
+</script>

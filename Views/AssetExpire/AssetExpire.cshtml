@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Asset - Asset Expire</title>
+
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/js/bootstrap-select.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js" charset="utf-8"></script>
+</head>
+<body class="sb-nav-fixed">
+
+    <main>
+        <div class="container-fluid">
+
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="~/Home/Index">Asset</a></li>
+                <li class="breadcrumb-item active">Asset Expire</li>
+            </ol>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table mr-1"></i>
+                    Asset Expire
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <span class="form-control border-0" >Date fr.</span>
+                        </div>
+                        <div class="col-md-4">
+                            <input input type="date" value="2017-06-01" class="form-control  " id="Datefr"/>
+                        </div>
+                        <div class="col-md-1">
+                            <span class="form-control border-0">Date to.</span>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="date" class="form-control  " id="Dateto" value="2020-07-15"/>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="submit" class="form-control btn-success" value="Load"/>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-Summary-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Expire Summary</a>
+                            <a class="nav-item nav-link" id="nav-Found-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Expire Detail</a>
+                        </div>
+                    </nav>
+
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div class="card" style="padding: 10px">
+                                <div class="card-header">
+                                    Asset Expire By Location
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered nowrap" id="LocationTable">
+                                            <thead>
+                                            </thead>
+
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card ">
+                                <div class="card-body">
+                                    @*<canvas id="ChartLocation" width="100%" height="40"></canvas>*@
+                                    <canvas id="canvaslocation" height="200" width="570"></canvas>
+                                </div>
+                            </div>
+
+
+                            <hr/>
+                            <div class="card" style="padding: 10px">
+                                <div class="card-header">
+                                    Asset Expire By Category
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered nowrap" id="CateTable">
+                                            <thead>
+
+                                            </thead>
+
+                                            <tbody>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card ">
+                                <div class="card-body">
+                                    @*<canvas id="ChartLocation" width="100%" height="40"></canvas>*@
+                                    <canvas id="mycanvas" height="280" width="570"></canvas>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            ...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+
+
+</html>
+
+<script>
+
+    $(document).ready(function () {
+
+          
+                $.ajax({
+                    url: "http://localhost:53990/Project/getCount",
+                    method: "GET",
+                    success: function(data) {
+                        var player = [];
+                        var score = [];
+                        for (var i in data) {
+                            player.push(data[i].ItemCate);
+                            score.push(data[i].Count);
+                        }
+
+                        var chartdata = {
+                            labels: player,
+                            datasets: [{
+                                label: 'Category',
+                                backgroundColor: 'green',
+                                borderColor: 'green',
+                                hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+                                hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                                fill: false,
+                                data: score,
+                                responsive: true
+                            }]
+
+                        };
+    var ctx = $("#mycanvas");
+    var myLineChart = new Chart(ctx, {
+        type: 'bar',
+        data: chartdata,
+                                        
+    });
+    },
+    error: function(data) {
+    }
+                });
+
+                $.ajax({
+                    url: "http://localhost:53990/Project/getCountLocation",
+                    method: "GET",
+                    success: function (data) {
+                        var player = [];
+                        var score = [];
+                        for (var i in data) {
+                            player.push(data[i].CompanyID);
+                            score.push(data[i].Count);
+                        }
+
+                        var chartdata = {
+                            labels: player,
+                            datasets: [{
+                                label: 'Location',
+                                backgroundColor: 'darkblue',
+                                borderColor: 'darkblue',
+                                hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+                                hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                                fill: false,
+                                data: score,
+                                responsive: true
+                            }]
+
+                        };
+                        var ctx = $("#canvaslocation");
+                        var myLineChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: chartdata,
+
+                        });
+                    },
+                    error: function (data) {
+                    }
+                });
+
+
+
+
+
+        $('#LocationTable').DataTable({
+            ajax: {
+                url: "http://localhost:53990/Project/getCountLocation",
+                type: "get",
+                dataSrc: ''
+            },
+            columns: [
+                {
+                    data: "CompanyID", title: "Location",
+                    render: function (data, type, row) {
+                        if (data === "0010") {
+                            return '<div>Rama-9 Campus</div>';
+                        }
+                        if (data === "0020") {
+                            return '<div>Asoke Campus</div>';
+                        }
+                        if (data === "0030") {
+                            return '<div>Hua-Hin Campus</div>';
+                        }
+                    }
+                   
+                },
+                {
+                    data: "Count",
+                    title: "Count",
+                    width: '50px'
+                }
+
+            ],
+            select: true,
+            dom: "Bfrtip",
+            buttons: [
+                //{
+                //    text: "New"
+
+
+                //},
+                { extend: "excel" }
+            ],
+            info: false
+        });
+
+        $('#CateTable').DataTable({
+            ajax: {
+                url: "http://localhost:53990/Project/getCount",
+                type: "get",
+                dataSrc: ''
+            },
+            columns: [
+                { data: "ItemCate", title: "Asset Cate" },
+                {
+                    data: "Count",
+                    title: "Count",
+                    width: '50px'
+                }
+                
+            ],
+            select: true,
+            dom: "Bfrtip",
+            buttons: [
+                //{
+                //    text: "New"
+
+
+                //},
+                { extend: "excel" }
+            ],
+            info: false
+        });
+
+    });
+
+</script>

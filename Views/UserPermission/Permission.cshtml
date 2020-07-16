@@ -1,0 +1,382 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <title>Cinfig - Permission</title>
+
+</head>
+<body class="sb-nav-fixed">
+    <form>
+        <main>
+            <div class="container-fluid">
+
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a href="~/Home/Index">Home</a></li>
+                    <li class="breadcrumb-item active"><a href="~/UserPermission/UserPermission">User Permission</a></li>
+                    <li class="breadcrumb-item active">Permission</li>
+                </ol>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table mr-1"></i>
+                                User Info
+                            </div>
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <span style="padding: 0rem 1rem 0rem 0rem">Username</span>
+                                    <input type="text" class="form-control " style="width: 100%" id="Username" required />
+                                </div>
+                                <div class="row">
+                                    <span style="padding: 0.5rem 1rem 0rem 0rem">Employee Code</span>
+                                    <input type="text" class="form-control " style="width: 100%" id="EmployeeCode" />
+                                </div>
+                                <div class="row">
+                                    <span style="padding: 0.5rem 1rem 0rem 0rem">Authen Type</span>
+                                    <select class="form-control" name="AuthenType">
+                                        <option></option>
+                                        <option value="DB">DB</option>
+                                        <option value="LDAP">LDAP</option>
+
+                                    </select>
+                                </div>
+                                <div class="row">
+
+                                    <div style="padding-top: 25px">
+                                        <span>Enable</span>
+                                        <label class="switch">
+                                            <input type="checkbox" id="Enable" >
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div align="right" style="padding-top: 10px">
+                                            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                                <input type="submit" id="btnGet" value="Save" class="btn btn-dark" />
+                                                <div class="btn-group" role="group">
+                                                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                                                        <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                                                        <a class="dropdown-item" href="" >
+                                                            <span type="submit" id="btnDel">Delete Project</span>
+                                                        </a>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table mr-1"></i>
+                                Permission
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <nav>
+                                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                <a class="nav-item nav-link active" id="nav-Summary-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Assign User Group</a>
+                                                <a class="nav-item nav-link" id="nav-Found-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Permission In Company</a>
+                                                <a class="nav-item nav-link" id="nav-NotFound-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Permission In Menu</a>
+                                                
+                                            </div>
+                                        </nav>
+
+                                        <div class="tab-content" id="nav-tabContent">
+                                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                                                <table class="table table-bordered nowrap" id="UserGroupTable" width="100%" cellspacing="0">
+                                                    <thead>
+
+                                                    </thead>
+
+                                                    <tbody></tbody>
+                                                </table>
+
+
+                                            </div>
+                                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                                <table class="table table-bordered nowrap" id="UserCompanyTable" width="100%" cellspacing="0">
+                                                    <thead>
+
+                                                    </thead>
+
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                                <table class="table table-bordered nowrap" id="UserMenuTable" width="100%" cellspacing="0">
+                                                    <thead>
+
+                                                    </thead>
+
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </form>
+</body>
+
+
+</html>
+
+<script>
+    $(document).ready(function () {
+
+
+
+
+        var id = window.location.pathname.split("/")[3];
+
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:53990//Permission/Getuser/",
+            data: {
+                id: id
+            },
+            success: function (data) {
+                console.log(data);
+                debugger;
+
+
+                function leadingZero(value) {
+                    if (value < 10) {
+                        return "0" + value.toString();
+                    }
+                    return value.toString();
+                }
+
+
+                document.getElementById("Username").value = data[0].Username;
+                document.getElementById("EmployeeCode").value = data[0].EmpCode;
+                debugger;
+            },
+            error: function (data) {
+
+            }
+        });
+
+
+        $('#UserGroupTable').DataTable({
+            scrollX: true,
+            ajax: {
+                url: "http://localhost:53990//Permission/GetUserGroupAll",
+                type: "get",
+                dataSrc: ''
+            },
+            columns: [
+                {
+                    data: "UserGroupID",
+                    render: function (data, type, row) {
+                        if (type === 'display') {
+
+                            return '<div align="center"><input type="checkbox"></div>';
+                        }
+
+                        return data;
+
+                    },
+                    width: "30px"
+                },
+                { data: "UserGroupID", title: "Group ID", width: "100px" },
+                { data: "GroupName", title: "Group Name" }
+                
+            ],
+            dom: "Bfrtip",
+
+            buttons: [
+                //{ extend: "print" }
+            ],
+            searching:false
+
+
+
+        });
+        $('#UserCompanyTable').DataTable({
+            
+            ajax: {
+                url: "http://localhost:53990/UserConfig/GetLocationAll",
+                type: "get",
+                dataSrc: ''
+            },
+            columns: [
+                {
+                    data: "CompanyID",
+                    render: function (data, type, row) {
+                        if (type === 'display') {
+
+                            return '<div align="center"><input type="checkbox"></div>';
+                        }
+
+                        return data;
+
+                    },
+                    width: "30px"
+                },
+                { data: "CompanyID", title: "Company ID", width: "50px" },
+                { data: "Name1", title: "Description" }
+
+            ],
+            dom: "Bfrtip",
+
+            buttons: [
+                //{ extend: "print" }
+            ],
+            searching: false
+
+
+
+        });
+
+        $('#UserMenuTable').DataTable({
+
+            ajax: {
+                url: "http://localhost:53990/Permission/GetUserMenu" ,
+                type: "get",
+                dataSrc: ''
+            },
+            columns: [
+               
+                { data: "GroupID", title: "Menu group", width: "100px" },
+                { data: "Name", title: "Menu name" },
+                {
+                    data: "NeedOpenPermission", title: "Open", width: "50px",
+                    render: function (data, type, row) {
+                        if (type === 'display') {
+                            if (data===false) {
+                                return '<div align="center"><input type="checkbox" disabled="disabled"></div>';
+                            } else {
+                                return '<div align="center"><input type="checkbox"></div>';
+                            }
+                            
+                        }
+
+                        return data;
+
+                    }
+                    
+                },
+                {
+                    data: "NeedCreatePermission", title: "Create", width: "50px",
+                    render: function (data, type, row) {
+                        if (type === 'display') {
+                            if (data === false) {
+                                return '<div align="center"><input type="checkbox" disabled="disabled"></div>';
+                            } else {
+                                return '<div align="center"><input type="checkbox"></div>';
+                            }
+
+                        }
+
+                        return data;
+
+                    }
+                },
+                {
+                    data: "NeedEditPermission", title: "Edit", width: "50px",
+                    render: function (data, type, row) {
+                        if (type === 'display') {
+                            if (data === false) {
+                                return '<div align="center"><input type="checkbox" disabled="disabled"></div>';
+                            } else {
+                                return '<div align="center"><input type="checkbox"></div>';
+                            }
+
+                        }
+
+                        return data;
+
+                    }
+                },
+                {
+                    data: "NeedDeletePermission", title: "Delete", width: "50px",
+                    render: function (data, type, row) {
+                        if (type === 'display') {
+                            if (data === false) {
+                                return '<div align="center"><input type="checkbox" disabled="disabled"></div>';
+                            } else {
+                                return '<div align="center"><input type="checkbox"></div>';
+                            }
+
+                        }
+
+                        return data;
+
+                    }
+                    
+                },
+                {
+                    data: "NeedPrintPermission", title: "Print", width: "50px",
+                    render: function (data, type, row) {
+                        if (type === 'display') {
+                            if (data === false) {
+                                return '<div align="center"><input type="checkbox" disabled="disabled"></div>';
+                            } else {
+                                return '<div align="center"><input type="checkbox"></div>';
+                            }
+
+                        }
+
+                        return data;
+
+                    }
+                }
+
+            ],
+            dom: "Bfrtip",
+
+            buttons: [
+                //{ extend: "print" }
+            ],
+            searching: false
+
+
+
+        });
+
+
+    });
+
+
+</script>
+<script type="text/javascript">
+
+    $("#btnDel").click(function() {
+
+        var username = $("#Username").val();
+
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:53990/Permission/Delete?username=" + username
+        });
+        debugger;
+    });
+
+
+</script>

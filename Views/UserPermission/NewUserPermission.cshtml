@@ -1,0 +1,444 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <title>Cinfig - New</title>
+
+</head>
+<body class="sb-nav-fixed">
+<form>
+<main>
+<div class="container-fluid">
+
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="~/Home/Index">Home</a></li>
+    <li class="breadcrumb-item active"><a href="~/UserPermission/UserPermission">User Permission</a></li>
+    <li class="breadcrumb-item active">New</li>
+</ol>
+<div class="row">
+<div class="col-md-3">
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table mr-1"></i>
+            New
+        </div>
+        <div class="card-body">
+
+            <div class="row">
+                <span style="padding: 0rem 1rem 0rem 0rem">Username</span>
+                <input type="text" class="form-control " style="width: 100%" id="Username" required/>
+            </div>
+            <div class="row">
+                <span style="padding: 0.5rem 1rem 0rem 0rem">Employee Code</span>
+                <input type="text" class="form-control " style="width: 100%" id="EmployeeCode"/>
+            </div>
+            <div class="row">
+                <span style="padding: 0.5rem 1rem 0rem 0rem">Authen Type</span>
+                <select class="form-control" id="AuthenType">
+                    <option></option>
+                    <option value="DB">DB</option>
+                    <option value="LDAP">LDAP</option>
+
+                </select>
+            </div>
+            <div class="row">
+
+                <div style="padding-top: 25px">
+                    <span >Enable</span>
+                    <label class="switch">
+                        <input type="checkbox" id="Enable">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="col-md-12">
+                    <div align="right" style="padding-top: 10px">
+                        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                            <input type="submit" id="btnGet" value="Save" class="btn btn-dark"/>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                                    <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                                    <a class="dropdown-item" href="">
+                                        <span type="submit" id="btnDel">Delete Project</span>
+                                    </a>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-9">
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table mr-1"></i>
+            User Info
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="tab-content tab-content-solid">
+                                <div class="tab-pane fade show active" role="tabpanel">
+                                    <div class="row ">
+                                        <div class="col-md-12">
+                                            <div class="row " hidden="hidden">
+                                                <div class="col-md-3">
+                                                    <span>Barcode</span>
+                                                    <input type="text" class="form-control form-control-sm" placeholder/>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span>Item Type</span>
+                                                    <div class="form-group">
+                                                        <select class="form-control form-control-sm">
+                                                            <option selected="selected" value="สินค้า">สินค้า</option>
+                                                            <option value="บริการ">บริการ</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-md-3">
+                                                    <span>First Name</span>
+                                                    <input type="text" class="form-control " style="width: 100%" id="FirstName" />
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span>Last Name </span>
+                                                    <input type="text" class="form-control " style="width: 100%" id="LastName"/>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span>Nick Name</span>
+                                                    <input type="text" class="form-control " style="width: 100%" id="Nickname"/>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span>Sex</span>
+                                                    <select class="form-control" id="Sex">
+                                                        <option></option>
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding-top: 10px; padding-bottom: 10px">
+
+                                                <div class="col-md-3">
+                                                    <span>Mobile Phone</span>
+                                                    <input type="text" class="form-control " style="width: 100%" id="MobilePhone"/>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span>Tel.</span>
+                                                    <input type="text" class="form-control " style="width: 100%" id="Tel"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span>E-Mail</span>
+                                                    <input type="text" class="form-control " style="width: 100%" id="EMail"/>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding-bottom: 20px">
+
+                                                <div class="col-md-3">
+                                                    <span>Marital Status</span>
+                                                    <select class="form-control" id="MaritalStatus">
+                                                        <option></option>
+                                                        <option value="Single">Single</option>
+                                                        <option value="Married">Married</option>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span>Citizen ID</span>
+                                                    <input type="text" class="form-control " style="width: 100%" id="CitizenID"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span>Bookback No.</span>
+                                                    <input type="text" class="form-control " style="width: 100%" id="Bookbackno"/>
+                                                </div>
+                                            </div>
+                                            <b >Address Info</b>
+                                            <hr/>
+                                            <div class="row" style="padding-top: 10px; padding-bottom: 20px">
+
+                                                <div class="col-md-3">
+                                                    <span>Country</span>
+                                                    <select class="form-control" id="CountryDropdown">
+                                                        <option value="TH">TH | THAILAND</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span>Addr. No</span>
+                                                    <input type="text" class="form-control " style="width: 100%" id="AddrNo"/>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <span>Moo</span>
+                                                    <input type="text" class="form-control " style="width: 100%" id="Moo"/>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="padding-top: 10px; padding-bottom: 20px">
+
+                                                <div class="col-md-3">
+                                                    <span>Post Code</span>
+                                                    <select class="form-control" id="PostcodeDropdown"> </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span>Sub-District</span>
+                                                    <input type="text" class="form-control " style="width: 100%" id="SubDistrict"/>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span>District</span>
+                                                    <input type="text" class="form-control " style="width: 100%" id="District"/>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span>Province</span>
+                                                    <input type="text" class="form-control " style="width: 100%" id="Province"/>
+                                                </div>
+                                            </div>
+
+                                            <b>Work infomation</b>
+                                            <hr/>
+                                            <div class="row" style="padding-top: 10px; padding-bottom: 20px">
+
+                                                <div class="col-md-3">
+                                                    <span>Department</span>
+                                                    <select class="form-control" id="Department">
+                                                        <option></option>
+                                                        <option value="IT">IT Naja</option>
+                                                        <option value="LOGISTIC">LOGISTIC</option>
+                                                        <option value="TRANSPORT">TRANSPORTS</option>
+                                                        <option value="ACCOUNTING">ACCOUNTING</option>
+                                                        <option value="SALES">SALES</option>
+                                                        <option value="WAREHOUSE">WAREHOUSE</option>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span>Position</span>
+                                                    <select class="form-control" id="Position">
+                                                        <option></option>
+                                                        <option value="ADMINISTRATIVE ASSISTANT">ADMINISTRATIVE ASSISTANT</option>
+                                                        <option value="OFFICER">OFFICER</option>
+                                                        <option value="DRIVER">DRIVER</option>
+                                                        <option value="SUPERVISOR">SUPERVISOR</option>
+                                                        <option value="MANAGER">MANAGER</option>
+                                                        <option value="DIRECTOR">DIRECTOR</option>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span>Start Work Date</span>
+                                                    <input type="date" class="form-control " style="width: 100%" id="StartDate"/>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span>Reign Date</span>
+                                                    <input type="date" class="form-control " style="width: 100%" id="ReignDate"/>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+</div>
+</main>
+
+</form>
+</body>
+
+
+</html>
+
+
+
+
+
+
+<script type="text/javascript">
+    var d = new Date();
+    $("#btnGet").click(function () {
+
+        var Username = $("#Username").val();
+        var EmployeeCode = $('#EmployeeCode').val();
+        var AuthenType = $('#AuthenType').val();
+        var FirstName = $('#FirstName').val();
+        var LastName = $('#LastName').val();
+        var Nickname = $('#Nickname').val();
+        var Sex = $('#Sex').val();
+        var MobilePhone = $('#MobilePhone').val();
+        var Tel = $('#Tel').val();
+        var EMail = $('#EMail').val();
+        var MaritalStatus = $('#MaritalStatus').val();
+        var CitizenID = $('#CitizenID').val();
+        var Bookbackno = $('#Bookbackno').val();
+        var CountryDropdown = $('#CountryDropdown').val();
+        var AddrNo = $('#AddrNo').val();
+        var Moo = $('#Moo').val();
+        var PostcodeDropdown = $('#PostcodeDropdown').val();
+        var SubDistrict = $('#SubDistrict').val();
+        var District = $('#District').val();
+        var Province = $('#Province').val();
+        var Department = $('#Department').val();
+        var Position = $('#Position').val();
+        var StartDate = $('#StartDate').val();
+        var ReignDate = $('#ReignDate').val();
+
+
+
+        var dataAll = '{Username: ' + JSON.stringify(Username) + ',EmpCode: ' + JSON.stringify(EmployeeCode) + ',FirstName: ' + JSON.stringify(FirstName) + ',LastName: ' + JSON.stringify(LastName) + ',NickName: ' + JSON.stringify(Nickname) + ',Gender: ' + JSON.stringify(Sex) + ',DepartmentID: ' + JSON.stringify(Department) + ',PositionID: ' + JSON.stringify(Position) + ',JobStartDate: ' + JSON.stringify(StartDate) + ',ResignDate: ' + JSON.stringify(ReignDate) + ',AddrNo: ' + JSON.stringify(AddrNo) + ',AddrMoo: ' + JSON.stringify(Moo) + ',AddrTumbon: ' + JSON.stringify(SubDistrict) + ',AddrAmphoe: ' + JSON.stringify(District) + ',AddrProvince: ' + JSON.stringify(Province) + ',AddrPostCode: ' + JSON.stringify(PostcodeDropdown) + ',AddrCountry: ' + JSON.stringify(CountryDropdown) + ',Tel: ' + JSON.stringify(Tel) + ',Mobile: ' + JSON.stringify(MobilePhone) + ',Email: ' + JSON.stringify(EMail) + ',BookBankNumber: ' + JSON.stringify(Bookbackno) + ',MaritalStatus: ' + JSON.stringify(MaritalStatus) + ',CitizenId: ' + JSON.stringify(CitizenID) + ',AuthenType: ' + JSON.stringify(AuthenType) + '}'
+
+
+
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:53990/Permission/create",
+            data: dataAll,
+
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                alert("Succuss ");
+                debugger;
+            },
+            failure: function (response) {
+                alert(response.data);
+            },
+            error: function (response) {
+                alert(response.data);
+            }
+        });
+        debugger;
+    });
+
+
+</script>
+<script>
+    $(document).ready(function() {
+
+
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:53990/Permission/GetPostcode?country=TH",
+            data: "{}",
+            success: function(data) {
+                var s = '<option ></option>';
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].PostCode !== "") {
+                        s += '<option value="' + data[i].PostCode + '">' + data[i].PostCode + ' | ' + data[i].AmphoeID + '</option>';
+                    }
+
+                }
+                $("#PostcodeDropdown").html(s);
+
+            }
+
+        });
+
+        var id = window.location.pathname.split("/")[3];
+
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:53990//UserConfig/GetUsername/",
+            data: {
+                id: id
+            },
+            success: function (data) {
+                console.log(data);
+                debugger;
+
+
+                function leadingZero(value) {
+                    if (value < 10) {
+                        return "0" + value.toString();
+                    }
+                    return value.toString();
+                }
+
+
+                function formatDate(date) {
+                    var dateformat = new Date(date);
+                    return dateformat.getFullYear() + "-" + leadingZero(dateformat.getMonth()) + "-" + leadingZero(dateformat.getDay());
+                }
+
+
+
+                document.getElementById("Username").value = data[0].Username;
+                document.getElementById("EmployeeCode").value = data[0].EmpCode;
+                document.getElementById("AuthenType").value = data[0].AuthenType;
+                document.getElementById("FirstName").value = data[0].FirstName;
+                document.getElementById("LastName").value = data[0].LastName;
+                document.getElementById("Nickname").value = data[0].Nickname;
+                document.getElementById("Sex").value = data[0].Gender;
+                document.getElementById("MobilePhone").value = data[0].Mobile;
+                document.getElementById("Tel").value = data[0].Tel;
+                document.getElementById("EMail").value = data[0].Email;
+                document.getElementById("MaritalStatus").value = data[0].MaritalStatus;
+                document.getElementById("CitizenID").value = data[0].CitizenId;
+                document.getElementById("Bookbackno").value = data[0].BookBankNumber;
+                document.getElementById("CountryDropdown").value = data[0].AddrCountry;
+                document.getElementById("AddrNo").value = data[0].AddrNo;
+                document.getElementById("Moo").value = data[0].AddrMoo;
+                //var CitizenID = $('#CitizenID').val();
+                //var Bookbackno = $('#Bookbackno').val();
+                //var CountryDropdown = $('#CountryDropdown').val();
+                //var AddrNo = $('#AddrNo').val();
+                //var Moo = $('#Moo').val();
+                //var PostcodeDropdown = $('#PostcodeDropdown').val();
+                //var SubDistrict = $('#SubDistrict').val();
+                //var District = $('#District').val();
+                //var Province = $('#Province').val();
+                //var Department = $('#Department').val();
+                //var Position = $('#Position').val();
+                //var StartDate = $('#StartDate').val();
+                //var ReignDate = $('#ReignDate').val();
+                debugger;
+            },
+            error: function (data) {
+
+            }
+        });
+
+    });
+
+
+</script>
+<script type="text/javascript">
+
+    $("#btnDel").click(function () {
+
+        var username = $("#Username").val();
+
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:53990/Permission/Delete?username=" + username
+        });
+        debugger;
+    });
+
+
+</script>

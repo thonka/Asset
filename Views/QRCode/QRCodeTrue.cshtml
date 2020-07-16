@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <title>Asset - QR Code</title>
+
+
+</head>
+<body class="sb-nav-fixed">
+
+    <main>
+        <div id="qrcodeTable"></div>
+        <div class="container-fluid">
+
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="~/Home/Index">Asset</a></li>
+                <li class="breadcrumb-item active">QR Code</li>
+            </ol>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-10">
+                            <i class="fas fa-table mr-1"></i> QR Code
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-10">
+
+                            <button id="PrintQRCode" class="form-control" style="width: 10%">Print QR Code</button>
+
+                        </div>
+                        <div class="col-md-2" align="right">
+                            <span>
+                                <input type="checkbox" id="checkPrinted"  checked="checked"/>
+                                <b>Show Printed</b>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered nowrap" id="QRCodeTable" width="100%" cellspacing="0">
+                            <thead>
+
+                            </thead>
+
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+
+
+    $(document).ready(function () {
+
+        var tableVar;
+        $("#checkPrinted").click(function () {
+            if ($(this).is(':checked')) {
+            } else {
+                window.location.href = "http://localhost:53990/QRCode/QRCode";
+            }
+        });
+
+         tableVar = $('#QRCodeTable').DataTable({
+            scrollX: true,
+            ajax: {
+                url: "http://localhost:53990//api/AssetHeader/?isprint=true",
+                type: "get",
+                dataSrc: ''
+            },
+            columns: [
+                {
+                    data: "ItemID",
+                    render: function(data, type, row) {
+                        var idcheck = 'ck' + data;
+                        if (type === 'display') {
+                            var ss = '<div align="center"><input type="checkbox" id="' + idcheck + '"   > </div>';
+
+                            return ss;
+                        }
+
+                        return data;
+
+                    },
+                    width: "10px"
+                },
+                { data: "ItemID", title: "Asset Code", width: "100px" },
+                { data: "NameTH", title: "Asset Name" },
+                { data: "PurchaseDate", title: "Purchase Date", width: "100px" },
+                {
+                    data: "IsPrint",
+                    title: "Printed",
+                    render: function(data, type, row) {
+                        if (type === 'display') {
+                            if (data===true) {
+
+                                return '<div align="center"><input type="checkbox" disabled="disabled" checked="checked" ></div>';
+                            } else {
+                                return '<div align="center"><input type="checkbox" disabled="disabled"></div>';
+                            }
+
+                        }
+
+                        return data;
+
+                    },
+                    width: "30px"
+                }
+            ],
+            dom: "Bfrtip",
+
+            buttons: [
+                //{ extend: "print" }
+            ]
+
+
+
+        });
+        $('#QRCodeTable tbody').on('click', 'tr', function () {
+            $(this).toggleClass('checkbox');
+        });
+
+        $('#PrintQRCode').click(function () {
+            var rowData = tableVar.rows('.checkbox').data().toArray();
+            var obj = jQuery.parseJSON(JSON.stringify(rowData));
+            var xx;
+            for (var i = 0; i < obj.length; i++) {
+                xx = obj[i].ItemID;
+                alert(xx);
+
+            }
+            window.location.href = "http://localhost:53990/QRCode/PrintQRCode/"+xx;
+
+
+        });
+
+
+
+        $.fn.dataTable.ext.errMode = 'throw';
+
+    });
+
+    </script>
+
+
+
+
+
+</body>
+
+
+</html>

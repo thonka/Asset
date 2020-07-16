@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <title>Cinfig - Notity Sender</title>
+
+
+
+</head>
+<body class="sb-nav-fixed">
+
+    <main>
+        <div class="container-fluid">
+
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="~/Home/Index">Home</a></li>
+                <li class="breadcrumb-item active">Notity Sender</li>
+            </ol>
+
+            <div class="card mb-12">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-11">
+                            <i class="fa fa-briefcase "></i>
+                            &nbsp; Notity Sender
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered nowrap" id="LocationTable" width="100%" cellspacing="0">
+                            <thead>
+
+
+
+                            </thead>
+
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+
+        $(document).ready(function () {
+
+
+            $('#LocationTable').DataTable({
+                scrollX: true,
+                ajax: {
+                    url: "http://localhost:53990/APINotify/GetNotifySender",
+                    type: "get",
+                    dataSrc: ''
+                },
+                columns: [
+                    {
+                        data: 'ID',
+                        render: function (data, type, row) {
+                            return '<div align="center"><a href="http://localhost:53990//APINotify/GetNotifySenderid?id=' + data + '"><i class="far fa-edit fa-2x"></i></a></div>';
+
+                        }, width: '30px'
+
+                    },
+                    { data: "SenderID", title: "Topic", width: '100px' },
+                    { data: "Smtp", title: "SMTP", width: '100px' },
+                    { data: "Port", title: "Port", width: '50px' },
+                    { data: "Username", title: "Username" },
+                ],
+                select: true,
+                dom: "Bfrtip",
+
+                buttons: [
+                    //{
+                    //    text: "New"
+
+
+                    //},
+                    //{ extend: "excel" }
+                ]
+            });
+
+
+            $.fn.dataTable.ext.errMode = 'throw';
+        });
+    </script>
+
+</body>
+
+
+</html>

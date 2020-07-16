@@ -1,0 +1,202 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <title>Asset - New Project</title>
+
+</head>
+<body class="sb-nav-fixed">
+<form>
+    <main>
+        <div class="container-fluid">
+
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="~/Home/Index">Asset</a></li>
+                <li class="breadcrumb-item"><a href="~/RegisterProjectr/RegisterProject">Register Project</a></li>
+                <li class="breadcrumb-item active"> New </li>
+            </ol>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table mr-1"></i>
+                            New 
+                        </div>
+                        <div class="card-body">
+
+                            <div class="row">
+                                <span style="padding: 0rem 1rem 0.5rem 0rem">Project No.</span>
+                                <input type="text" class="form-control " style="width: 100%" id="ProjectNo"/>
+                            </div>
+                            <div class="row">
+                                <span style="padding: 1rem 1rem 0.5rem 0rem">Project Date</span>
+                                <input type="date" class="form-control " style="width: 100%" id="ProjectDate"/>
+                            </div>
+                            <div class="row">
+                                <span style="padding: 1rem 1rem 0.5rem 0rem">Description</span>
+                                <textarea class="form-control" style="width: 100%" id="Description"></textarea>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div align="right" style="padding-top: 10px">
+                                        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                            <input type="submit" id="btnGet" value="Save" class="btn btn-dark"/>
+                                            <div class="btn-group" role="group">
+                                                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                                                    <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                                                    <a class="dropdown-item" href="">
+                                                        <span type="submit" id="btnDel">Delete Project</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table mr-1"></i>
+                            Line Table
+                        </div>
+                        <div class="card-body">
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered nowrap" id="AssetHeaderTable" width="100%" cellspacing="0">
+                                    <thead>
+
+
+
+                                    </thead>
+
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</form>
+</body>
+
+
+</html>
+<script type="text/javascript">
+  
+    $("#btnDel").click(function () {
+
+        var ProjectNo = $("#ProjectNo").val();
+
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:53990/Project/DeleteProject?id=" + ProjectNo
+        });
+        debugger;
+    });
+
+
+</script>
+
+<script type="text/javascript">
+    var d = new Date();
+    $("#btnGet").click(function () {
+
+        var ProjectNo = $("#ProjectNo").val();
+        var ProjectDate = $('#ProjectDate').val();
+        var Description = $('#Description').val();
+        
+        var dataAll = '{CountID: ' + JSON.stringify(ProjectNo) + ',CountDate: ' + JSON.stringify(ProjectDate) + ',CountDesc: ' + JSON.stringify(Description) + '}'
+
+
+
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:53990/Project/Create",
+            data: dataAll,
+
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                alert("Succuss ");
+                debugger;
+            },
+            failure: function (response) {
+                alert(response.data);
+            },
+            error: function (response) {
+                alert(response.data);
+            }
+        });
+        debugger;
+        window.location.href = "http://localhost:53990/RegisterProjectr/RegisterProject";
+    });
+
+
+</script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $('#AssetHeaderTable').DataTable({
+            scrollX: true,
+            ajax: {
+                url: "http://localhost:53990/Project/GetLine",
+                type: "get",
+                dataSrc: ''
+            },
+            columns: [
+               
+                { data: "ItemID", title: "Asset No." },
+                { data: "NameTH", title: "Description" },
+                { data: "CompanyID", title: "Campus in Dynamics" },
+                { data: "CompanyID", title: "Log in Dynamics" },
+                { data: "CheckStatus", title: "Check Status" },
+                { data: "ItemType", title: "Class" },
+                { data: "ItemCate", title: "Cate" },
+                { data: "OwnerName", title: "Owner Name" },
+                { data: "CostCenter", title: "Cost Center" },
+                { data: "Building", title: "Building" },
+                { data: "Floor", title: "Floor" },
+                { data: "FoundInCompany", title: "Found in campus" },
+                { data: "FoundInLocation", title: "Found in location" }
+               
+
+            ],
+            select: true,
+            dom: "Bfrtip",
+
+            buttons: [
+                //{
+                //    text: "New"
+
+
+                //},
+                { extend: "excel" }
+
+            ]
+        });
+
+
+        $.fn.dataTable.ext.errMode = 'throw';
+
+
+
+    });
+</script>
