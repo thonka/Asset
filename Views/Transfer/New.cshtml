@@ -9,8 +9,6 @@
 
 </head>
 <body class="sb-nav-fixed">
-    <form>
-        <main>
             <div class="container-fluid">
 
                 <ol class="breadcrumb mb-4">
@@ -29,7 +27,7 @@
 
                                 <div class="row">
                                     <span style="padding: 0rem 1rem 0.5rem 0rem">Transfer No.</span>
-                                    <input type="text" class="form-control " style="width: 100%" id="TransferNo" disabled="disabled" />
+                                    <input type="text" class="form-control " style="width: 100%" id="TransferNo"  />
                                 </div>
                                 <div class="row">
                                     <span style="padding: 1rem 1rem 0.5rem 0rem">Transfer Date</span>
@@ -106,9 +104,6 @@
                 </div>
 
             </div>
-        </main>
-
-    </form>
 </body>
 
 
@@ -136,7 +131,7 @@
 
 <script>
     $(document).ready(function () {
-        
+
         $.ajax({
             type: "GET",
             url: "/api/getAlllocation",
@@ -154,7 +149,9 @@
                 //$("#TransferNo").val() = '_' + Math.random().toString(36).substr(2, 9);
                 $("#LocationFrom").html(s);
                 $("#LocationTo").html(c);
-                var nn= 'TF-'+Math.random().toString(36).substr(2, 9);
+
+                var dn = Date.now();
+                var nn = 'TF-' + dn.toString(10).substr(6, 9);
                 $("#TransferNo").val(nn);
             }
         });
@@ -260,10 +257,11 @@
                 dataType: "json",
                 success: function (response) {
                     alert("Succuss ");
-                    debugger;
+                    window.location.href = "/Transfer/Transfer";
                 },
                 failure: function (response) {
                     alert(response.data);
+
                 },
                 error: function (response) {
                 }
@@ -295,7 +293,7 @@
                         
                     },
                     error: function (response) {
-                       
+                        window.location.href = "/Transfer/Transfer";
                     }
 
                 });
@@ -306,7 +304,7 @@
 
             } debugger;
 
-            window.location.href = "/Transfer/Transfer";
+            
         });
 
         debugger;

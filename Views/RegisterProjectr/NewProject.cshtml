@@ -9,8 +9,6 @@
 
 </head>
 <body class="sb-nav-fixed">
-<form>
-    <main>
         <div class="container-fluid">
 
             <ol class="breadcrumb mb-4">
@@ -29,7 +27,7 @@
 
                             <div class="row">
                                 <span style="padding: 0rem 1rem 0.5rem 0rem">Project No.</span>
-                                <input type="text" class="form-control " style="width: 100%" id="ProjectNo"/>
+                                <input type="text" class="form-control " style="width: 100%" id="ProjectNo" />
                             </div>
                             <div class="row">
                                 <span style="padding: 1rem 1rem 0.5rem 0rem">Project Date</span>
@@ -90,9 +88,6 @@
             </div>
 
         </div>
-    </main>
-
-</form>
 </body>
 
 
@@ -109,19 +104,21 @@
         });
         debugger;
     });
-
+    var dn = Date.now();
+    var nn = 'CT-' + dn.toString(10).substr(6, 9);
+    $("#ProjectNo").val(nn);
 
 </script>
 
-<script type="text/javascript">
+<script>
     var d = new Date();
     $("#btnGet").click(function () {
 
         var ProjectNo = $("#ProjectNo").val();
         var ProjectDate = $('#ProjectDate').val();
         var Description = $('#Description').val();
-        
-        var dataAll = '{CountID: ' + JSON.stringify(ProjectNo) + ',CountDate: ' + JSON.stringify(ProjectDate) + ',CountDesc: ' + JSON.stringify(Description) + '}'
+
+        var dataAll = '{CountID: ' + JSON.stringify(ProjectNo) + ',CountDate: ' + JSON.stringify(ProjectDate) + ',CountDesc: ' + JSON.stringify(Description) + '}';
 
 
 
@@ -138,20 +135,16 @@
             },
             failure: function (response) {
                 alert(response.data);
+                
             },
             error: function (response) {
-                alert(response.data);
+                alert("Success");
+                window.location.href = "/RegisterProjectr/RegisterProject";
             }
         });
         debugger;
-        window.location.href = "/RegisterProjectr/RegisterProject";
+        
     });
-
-
-</script>
-
-<script>
-
     $(document).ready(function () {
 
         $('#AssetHeaderTable').DataTable({
@@ -162,7 +155,7 @@
                 dataSrc: ''
             },
             columns: [
-               
+
                 { data: "ItemID", title: "Asset No." },
                 { data: "NameTH", title: "Description" },
                 { data: "CompanyID", title: "Campus in Dynamics" },
@@ -176,7 +169,7 @@
                 { data: "Floor", title: "Floor" },
                 { data: "FoundInCompany", title: "Found in campus" },
                 { data: "FoundInLocation", title: "Found in location" }
-               
+
 
             ],
             select: true,
@@ -199,4 +192,5 @@
 
 
     });
+
 </script>
