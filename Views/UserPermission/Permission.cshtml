@@ -156,7 +156,7 @@
 
         $.ajax({
             type: "GET",
-            url: "http://localhost:53990//Permission/Getuser/",
+            url: "/Permission/Getuser/",
             data: {
                 id: id
             },
@@ -186,7 +186,7 @@
         $('#UserGroupTable').DataTable({
             scrollX: true,
             ajax: {
-                url: "http://localhost:53990//Permission/GetUserGroupAll",
+                url: "/Permission/GetUserGroupAll",
                 type: "get",
                 dataSrc: ''
             },
@@ -221,7 +221,7 @@
         $('#UserCompanyTable').DataTable({
             
             ajax: {
-                url: "http://localhost:53990/UserConfig/GetLocationAll",
+                url: "/UserConfig/GetLocationAll",
                 type: "get",
                 dataSrc: ''
             },
@@ -257,7 +257,7 @@
         $('#UserMenuTable').DataTable({
 
             ajax: {
-                url: "http://localhost:53990/Permission/GetUserMenu" ,
+                url: "/Permission/GetUserMenu" ,
                 type: "get",
                 dataSrc: ''
             },
@@ -373,7 +373,7 @@
 
         $.ajax({
             type: "POST",
-            url: "http://localhost:53990/Permission/Delete?username=" + username
+            url: "/Permission/Delete?username=" + username
         });
         debugger;
     });

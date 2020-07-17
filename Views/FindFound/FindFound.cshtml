@@ -131,7 +131,7 @@
 
     $.ajax({
         type: "GET",
-        url: "http://localhost:53990/project/getall",
+        url: "/project/getall",
         data: "{}",
         success: function(data) {
             var s;
@@ -152,7 +152,7 @@
 
         $('#LocationTable').DataTable({
             ajax: {
-                url: "http://localhost:53990/UserConfig/GetLocationAll",
+                url: "/UserConfig/GetLocationAll",
                 type: "get",
                 dataSrc: ''
             },
@@ -218,7 +218,7 @@
 
         $('#CateTable').DataTable({
             ajax: {
-                url: "http://localhost:53990/Project/getCate?id=" + $("#CountDropdown").val(),
+                url: "/Project/getCate?id=" + $("#CountDropdown").val(),
                 type: "get",
                 dataSrc: ''
             },
@@ -267,7 +267,7 @@
         });
         $('#notFoundTable').DataTable({
             ajax: {
-                url: "http://localhost:53990/Project/getFound?id=" + $("#CountDropdown").val(),
+                url: "/Project/getFound?id=" + $("#CountDropdown").val(),
                 type: "get",
                 dataSrc: ''
             },

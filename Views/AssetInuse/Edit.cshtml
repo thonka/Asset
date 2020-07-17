@@ -268,7 +268,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "http://localhost:53990/api/Create",
+                url: "/api/Create",
                 data: dataAll,
 
                 contentType: "application/json; charset=utf-8",
@@ -285,8 +285,7 @@
                 }
 
             });
-            window.location.href = "http://localhost:53990/AssetInuse/Inuse";
-            debugger;
+            window.location.href = "/AssetInuse/Inuse";
         });
 
 
@@ -295,7 +294,7 @@
     $(document).ready(function () {
         $.ajax({
             type: "GET",
-            url: "http://localhost:53990/api/getAlllocation",
+            url: "/api/getAlllocation",
             data: '{}',
             success: function (data) {
                 var s = '<option value="-1"></option>';
@@ -316,7 +315,7 @@
 
         $.ajax({
             type: "GET",
-            url: "http://localhost:53990/api/getOwner",
+            url: "/api/getOwner",
             data: "{}",
             success: function(data) {
                 var s = '<option value="-1"></option>';
@@ -336,7 +335,7 @@
 
         $.ajax({
             type: "GET",
-            url: "http://localhost:53990//api/getid/",
+            url: "/api/getid/",
             data: {
                 id: id
     },
@@ -385,7 +384,7 @@
 
         $('#PrintQRCode').click(function () {
             alert($("#AssetCode").val());
-            window.location.href = "http://localhost:53990/QRCode/PrintQRCode/" + $("#AssetCode").val();
+            window.location.href = "/QRCode/PrintQRCode/" + $("#AssetCode").val();
 
 
         });

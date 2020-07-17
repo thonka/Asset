@@ -56,15 +56,15 @@
 
                                         <div class="col-md-3">
                                             <span>Asset Code</span><span style="color: red">&nbsp;***</span>
-                                            <input type="text" class="form-control " style="width: 100%" id="AssetCode" />
+                                            <input type="text" class="form-control " style="width: 100%" id="AssetCode" required/>
                                         </div>
                                         <div class="col-md-3">
                                             <span>Asset Name</span><span style="color: red">&nbsp; ***</span>
-                                            <input type="text" class="form-control " style="width: 100%" id="AssetName" />
+                                            <input type="text" class="form-control " style="width: 100%" id="AssetName"required />
                                         </div>
                                         <div class="col-md-3">
                                             <span>Location</span><span style="color: red">&nbsp; ***</span>
-                                            <select class="form-control" id="LocationDropdown" ></select>
+                                            <select class="form-control" id="LocationDropdown" required></select>
                                         </div>
                                         <div class="col-md-3">
                                             <div style="padding-top: 25px">
@@ -233,63 +233,59 @@
 
 
 </html>
-<script type="text/javascript">
-    $("#btnGet").click(function() {
-        var AssetCode = $("#AssetCode").val();
-        var AssetName = $('#AssetName').val();
-        var Location = $('#LocationDropdown').val();
-        var StickerName = $('#StickerName').val();
-        var Department = $('#Department').val();
-        var Owner = $('#OwnerDropdown').val();
-        var RefCode = $('#RefCode').val();
-        var CostCenter = $('#CostDropdown').val();
-        var PurchaseDate = $('#PurchaseDate').val();
-        var UseDate = $('#UseDate').val();
-        var ExpireDate = $('#ExpireDate').val();
-        var WarrantyDate = $('#WarrantyDate').val();
-        var NextServiceDate = $('#NextServiceDate').val();
-        var DisposalDate = $('#DisposalDate').val();
-        var Building = $('#Building').val();
-        var Floor = $('#Floor').val();
-        var Room = $('#Room').val();
-        var Insured = $('#Insured').val();
-        var UnderMaintenance = $('#UnderMaintenance').val();
-            
-           
-
-        var dataAll = '{ItemID: ' + JSON.stringify(AssetCode) + ',NameTH: ' + JSON.stringify(AssetName) + ',NameEN: ' + JSON.stringify(StickerName) + ',CompanyID: ' + JSON.stringify(Location) + ',UseInLocation: ' + JSON.stringify(Location) + ',Department: ' + JSON.stringify(Department) + ',OwnerID: ' + JSON.stringify(Owner) + ',RefID: ' + JSON.stringify(RefCode) + ',CostCenter: ' + JSON.stringify(CostCenter) + ',PurchaseDate: ' + JSON.stringify(PurchaseDate) + ',UseDate: ' + JSON.stringify(UseDate) + ',ExpireDate: ' + JSON.stringify(ExpireDate) + ',WarrantyDate: ' + JSON.stringify(WarrantyDate) + ',NextServiceDate: ' + JSON.stringify(NextServiceDate) + ',DisposalDate: ' + JSON.stringify(DisposalDate) + ',Building: ' + JSON.stringify(Building) + ',Floor: ' + JSON.stringify(Floor) + ',Room: ' + JSON.stringify(Room) + ',IsInsured: ' + JSON.stringify(Insured) + ',IsUnderMaintenance: ' + JSON.stringify(UnderMaintenance) + '}'
-
-
-
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:53990/api/Create",
-            data: dataAll,
-                       
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                alert("Success");
-                    
-            },
-            error: function(response) {
-                window.location.href = "http://localhost:53990/AssetInuse/Inuse";
-            }
-
-                
-        });
-        debugger;
-        window.location.href = "http://localhost:53990/AssetInuse/Inuse";
-           
-    });
- 
-
-</script>
 <script>
     $(document).ready(function () {
+        
+        $("#btnGet").click(function () {
+            var AssetCode = $("#AssetCode").val();
+            var AssetName = $("#AssetName").val();
+            var Location = $('#LocationDropdown').val();
+            var StickerName = $('#StickerName').val();
+            var Department = $('#Department').val();
+            var Owner = $('#OwnerDropdown').val();
+            var RefCode = $('#RefCode').val();
+            var CostCenter = $('#CostDropdown').val();
+            var PurchaseDate = $('#PurchaseDate').val();
+            var UseDate = $('#UseDate').val();
+            var ExpireDate = $('#ExpireDate').val();
+            var WarrantyDate = $('#WarrantyDate').val();
+            var NextServiceDate = $('#NextServiceDate').val();
+            var DisposalDate = $('#DisposalDate').val();
+            var Building = $('#Building').val();
+            var Floor = $('#Floor').val();
+            var Room = $('#Room').val();
+            var Insured = $('#Insured').val();
+            var UnderMaintenance = $('#UnderMaintenance').val();
+
+
+            var dataAll = '{ItemID: ' + JSON.stringify(AssetCode) + ',NameTH: ' + JSON.stringify(AssetName) + ',NameEN: ' + JSON.stringify(StickerName) + ',CompanyID: ' + JSON.stringify(Location) + ',UseInLocation: ' + JSON.stringify(Location) + ',Department: ' + JSON.stringify(Department) + ',OwnerID: ' + JSON.stringify(Owner) + ',RefID: ' + JSON.stringify(RefCode) + ',CostCenter: ' + JSON.stringify(CostCenter) + ',PurchaseDate: ' + JSON.stringify(PurchaseDate) + ',UseDate: ' + JSON.stringify(UseDate) + ',ExpireDate: ' + JSON.stringify(ExpireDate) + ',WarrantyDate: ' + JSON.stringify(WarrantyDate) + ',NextServiceDate: ' + JSON.stringify(NextServiceDate) + ',DisposalDate: ' + JSON.stringify(DisposalDate) + ',Building: ' + JSON.stringify(Building) + ',Floor: ' + JSON.stringify(Floor) + ',Room: ' + JSON.stringify(Room) + ',IsInsured: ' + JSON.stringify(Insured) + ',IsUnderMaintenance: ' + JSON.stringify(UnderMaintenance) + '}';
+
+
+            if (AssetCode === "" || AssetName === "" || Location === "") {
+                alert("Input data");
+            } else {
+
+                $.ajax({
+                    type: "POST",
+                    url: "/api/Create",
+                    data: dataAll,
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response.statusText);
+                        var url = "/AssetInuse/Inuse/";
+                        $(location).attr('href', url);
+                    },
+                    error: function (response) {
+                        console.log(response.statusText);
+                    }
+                });
+                
+            }
+            debugger;
+        });
         $.ajax({
             type: "GET",
-            url: "http://localhost:53990/api/getAlllocation",
+            url: "/api/getAlllocation",
             data: '{}',
             success: function (data) {
                 var s = '<option></option>';
@@ -310,7 +306,7 @@
 
         $.ajax({
             type: "GET",
-            url: "http://localhost:53990/api/getOwner",
+            url: "/api/getOwner",
             data: "{}",
             success: function(data) {
                 var s = '<option></option>';

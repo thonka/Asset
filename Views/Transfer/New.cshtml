@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="row">
                                     <span style="padding: 1rem 1rem 0.5rem 0rem">Location From</span>
-                                    <select class="form-control" style="width: 100%" id="LocationFrom" required></select>
+                                    <select class="form-control" style="width: 100%" id="LocationFrom" onchange="myFunction()" required></select>
                                 </div>
                                 <div class="row">
                                     <span style="padding: 1rem 1rem 0.5rem 0rem">Location To</span>
@@ -121,7 +121,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "http://localhost:53990/transferapi/Delete?id=" + TransferNo
+                url: "/transferapi/Delete?id=" + TransferNo
             });
             debugger;
         });
@@ -130,40 +130,7 @@
     </script>
 
 <script type="text/javascript">
-        $("#btnGet").click(function () {
-
-            var TransferNo = $("#TransferNo").val();
-            var TransferDate = $('#TransferDate').val();
-            var LocationFrom = $('#LocationFrom').val();
-            var LocationTo = $('#LocationTo').val();
-            var Department = $('#Department').val();
-
-            var dataAll = '{ProdID: ' + JSON.stringify(TransferNo) + ',ProdDate: ' + JSON.stringify(TransferDate) + ',CompanyID: ' + JSON.stringify(LocationFrom) + ',CostCenter: ' + JSON.stringify(LocationTo) + ',DocumentInfo: ' + JSON.stringify(Department) + '}'
-
-
-
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:53990/transferapi/create",
-                data: dataAll,
-
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    alert("Succuss ");
-                    debugger;
-                },
-                failure: function (response) {
-                    alert(response.data);
-                },
-                error: function (response) {
-                    alert(response.data);
-                }
-            });
-            debugger;
-            window.location.href = "http://localhost:53990/Transfer/Transfer";
-        });
-
+        
 
     </script>
 
@@ -172,14 +139,14 @@
         
         $.ajax({
             type: "GET",
-            url: "http://localhost:53990/api/getAlllocation",
+            url: "/api/getAlllocation",
             data: '{}',
             success: function (data) {
                 var s='<option value="-1"></option>';
                 var c='<option value="-1"></option>';
 
                 for (var i = 0; i < data.length; i++) {
-                    if (data[i].ParentID !== "") {
+                    if (data[i].CompanyID !== "") {
                         s += '<option value="' + data[i].CompanyID + '">' + data[i].CompanyID + ' | ' + data[i].Name1 + '</option>';
                         c += '<option value="' + data[i].CompanyID + '">' + data[i].CompanyID + ' | ' + data[i].Name1 + '</option>';
                     }
@@ -191,69 +158,7 @@
                 $("#TransferNo").val(nn);
             }
         });
-       
             
-            var AssetTable= $('#AssetHeaderTable').DataTable({
-                ajax: {
-                    url: "http://localhost:53990/Project/GetLine",
-                    type: "get",
-                    dataSrc: ''
-                },
-                columns: [
-                    {
-                        data: "ItemID",
-                        render: function (data, type, row) {
-                            var idcheck = 'ck' + data;
-                            if (type === 'display') {
-                                var ss = '<div align="center"><input type="checkbox" id="' + idcheck + '"   > </div>';
-
-                                return ss;
-                            }
-
-                            return data;
-
-                        },
-                        width: "10px"
-                    },
-                    { data: "ItemID", title: "Asset No." },
-                    { data: "NameTH", title: "Description" },
-                    { data: "ItemCate", title: "Class" },
-                    { data: "ItemType", title: "Sub Class" },
-                    {
-                        data: "BeginQty", title: "Quantity",
-                        render: function (data, type, row) {
-                            if (type === 'display') {
-                                var ss = '<div align="center"><input type="text" class="form-control" value="' + data + '" > </div>';
-
-                                return ss;
-                            }
-
-                            return data;
-
-                        }
-                    },
-                    { data: "LotNo", title: "Unit" },
-
-
-
-                ],
-                select: true,
-                dom: "Bfrtip",
-                info:false,
-
-                buttons: [
-                    //{
-                    //    text: "New"
-
-
-                    //},
-                    { extend: "excel" }
-
-                ]
-            });
-
-
-            $.fn.dataTable.ext.errMode = 'throw';
 
 
             //$('#AssetHeaderTable').click(function () {
@@ -273,4 +178,143 @@
         
 
     });
+    function myFunction() {
+        var searchLo = document.getElementById("LocationFrom").value;
+        var AssetTable = $('#AssetHeaderTable').DataTable({
+            ajax: {
+                url: "/api/GetLocationID?id=" + searchLo,
+                type: "get",
+                dataSrc: ''
+            },
+            columns: [
+                {
+                    data: "ItemID",
+                    render: function (data, type, row) {
+                        var idcheck = 'ck' + data;
+                        if (type === 'display') {
+                            var ss = '<div align="center"><input type="checkbox" id="' + idcheck + '"   > </div>';
+
+                            return ss;
+                        }
+
+                        return data;
+
+                    },
+                    width: "10px"
+                },
+                { data: "ItemID", title: "Asset No." },
+                { data: "NameTH", title: "Description" },
+                { data: "ItemCate", title: "Class" },
+                { data: "ItemType", title: "Sub Class" },
+                {
+                    data: "BeginQty", title: "Quantity",
+                    render: function (data, type, row) {
+                        if (type === 'display') {
+                            var ss = '<div align="center"><input type="text" class="form-control" value="' + data + '" > </div>';
+
+                            return ss;
+                        }
+
+                        return data;
+
+                    }
+                },
+                { data: "Remark2", title: "Unit" },
+
+
+
+            ],
+            select: true,
+            dom: "Bfrtip",
+            info: false,
+
+            buttons: [
+                //{
+                //    text: "New"
+
+
+                //},
+                { extend: "excel" }
+
+            ]
+        });
+
+        $('#AssetHeaderTable tbody').on('click', 'tr', function () {
+            $(this).toggleClass('checkbox');
+        });
+        $("#btnGet").click(function () {
+
+            var TransferNo = $("#TransferNo").val();
+            var TransferDate = $('#TransferDate').val();
+            var LocationFrom = $('#LocationFrom').val();
+            var LocationTo = $('#LocationTo').val();
+            var Department = $('#Department').val();
+
+            var dataAll = '{ProdID: ' + JSON.stringify(TransferNo) + ',ProdDate: ' + JSON.stringify(TransferDate) + ',CompanyID: ' + JSON.stringify(LocationFrom) + ',CostCenter: ' + JSON.stringify(LocationTo) + ',DocumentInfo: ' + JSON.stringify(Department) + '}';
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "/transferapi/create",
+                data: dataAll,
+
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    alert("Succuss ");
+                    debugger;
+                },
+                failure: function (response) {
+                    alert(response.data);
+                },
+                error: function (response) {
+                    alert(response.data);
+                }
+            });
+
+
+            var rowData = AssetTable.rows('.checkbox').data().toArray();
+            var obj = jQuery.parseJSON(JSON.stringify(rowData));
+            for (var i = 0; i < obj.length; i++) {
+                var LitemID = obj[i].ItemID;
+                var Lname = obj[i].NameTH;
+                var LClass = obj[i].ItemCate;
+                var LSubClass = obj[i].ItemType;
+                var LQty = obj[i].Price;
+                var LUnit = obj[i].Unit;
+
+                $.ajax({
+                    type: "POST",
+                    url: "/transferapi/transferLine",
+                    data: '{ProdID: ' + JSON.stringify(TransferNo) + ',ProdDate: ' + JSON.stringify(TransferDate) + ',CompanyID: ' + JSON.stringify(LocationFrom) + ',CostCenter: ' + JSON.stringify(LocationTo) + ',DocTypeID: ' + JSON.stringify(Department) + ',ItemID: ' + JSON.stringify(LitemID) + ',ItemName: ' + JSON.stringify(Lname) + ',ItemCateID: ' + JSON.stringify(LClass) + ',ItemTypeID: ' + JSON.stringify(LSubClass) + ',QtyOrder: ' + JSON.stringify(LQty) + ',Packaging: ' + JSON.stringify(LUnit) + '}',
+
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        alert("Succuss ");
+                        debugger;
+                    },
+                    failure: function (response) {
+                        alert(response.data);
+                    },
+                    error: function (response) {
+                        alert(response.data);
+                    }
+
+                });
+
+
+               
+
+
+            } debugger;
+
+            window.location.href = "/Transfer/Transfer";
+        });
+
+        debugger;
+        $.fn.dataTable.ext.errMode = 'throw';
+
+    }
 </script>

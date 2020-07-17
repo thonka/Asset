@@ -316,7 +316,7 @@
 
         $.ajax({
             type: "POST",
-            url: "http://localhost:53990/Permission/create",
+            url: "/Permission/create",
             data: dataAll,
 
             contentType: "application/json; charset=utf-8",
@@ -343,7 +343,7 @@
 
         $.ajax({
             type: "GET",
-            url: "http://localhost:53990/Permission/GetPostcode?country=TH",
+            url: "/Permission/GetPostcode?country=TH",
             data: "{}",
             success: function(data) {
                 var s = '<option ></option>';
@@ -363,7 +363,7 @@
 
         $.ajax({
             type: "GET",
-            url: "http://localhost:53990//UserConfig/GetUsername/",
+            url: "/UserConfig/GetUsername/",
             data: {
                 id: id
             },
@@ -435,7 +435,7 @@
 
         $.ajax({
             type: "POST",
-            url: "http://localhost:53990/Permission/Delete?username=" + username
+            url: "/Permission/Delete?username=" + username
         });
         debugger;
     });

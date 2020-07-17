@@ -129,7 +129,7 @@
 
           
                 $.ajax({
-                    url: "http://localhost:53990/Project/getCount",
+                    url: "/Project/getCount",
                     method: "GET",
                     success: function(data) {
                         var player = [];
@@ -165,7 +165,7 @@
                 });
 
                 $.ajax({
-                    url: "http://localhost:53990/Project/getCountLocation",
+                    url: "/Project/getCountLocation",
                     method: "GET",
                     success: function (data) {
                         var player = [];
@@ -206,7 +206,7 @@
 
         $('#LocationTable').DataTable({
             ajax: {
-                url: "http://localhost:53990/Project/getCountLocation",
+                url: "/Project/getCountLocation",
                 type: "get",
                 dataSrc: ''
             },
@@ -248,7 +248,7 @@
 
         $('#CateTable').DataTable({
             ajax: {
-                url: "http://localhost:53990/Project/getCount",
+                url: "/Project/getCount",
                 type: "get",
                 dataSrc: ''
             },

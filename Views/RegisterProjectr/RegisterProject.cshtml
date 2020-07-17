@@ -70,14 +70,14 @@
             $('#AssetCountTable').DataTable({
                 scrollX: true,
                 ajax: {
-                    url: "http://localhost:53990/project/getall",
+                    url: "/project/getall",
                     type: "get",
                     dataSrc: ''
                 },
                 columns: [
                     {
                         data: 'CountID', render: function (data, type, row) {
-                            return '<div align="center"><a href="http://localhost:53990/RegisterProjectr/NewProject/' + data + '"><i class="far fa-edit fa-2x"></i></a></div>';
+                            return '<div align="center"><a href="/RegisterProjectr/Edit/' + data + '"><i class="far fa-edit fa-2x"></i></a></div>';
 
                         }, width: '30px'
 

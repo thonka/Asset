@@ -10,16 +10,6 @@
 
 </head>
 <body class="sb-nav-fixed">
-
-
-
-    
-
-
-
-
-
-
 <main>
     <div class="container-fluid">
 
@@ -127,7 +117,7 @@
         $('#LocationTable').DataTable({
             scrollX: true,
             ajax: {
-                url: "http://localhost:53990/UserConfig/GetLocationAll",
+                url: "/UserConfig/GetLocationAll",
                 type: "get",
                 dataSrc: ''
             },
@@ -135,7 +125,7 @@
                 {
                     data: 'CompanyID',
                     render: function(data, type, row) {
-                        return '<div align="center"><a href="http://localhost:53990//UserConfig/GetLocationid?userid=' + data + '"><i class="fas fa-folder-open fa-2x"></i></a></div>';
+                        return '<div align="center"><a href="/UserConfig/GetLocationid?userid=' + data + '"><i class="fas fa-folder-open fa-2x"></i></a></div>';
 
                     }, width: '30px'
 
@@ -167,7 +157,7 @@
         $(document).ready(function () {
             $.ajax({
                 type: "GET",
-                url: "http://localhost:53990/api/getAlllocation",
+                url: "/api/getAlllocation",
                 data: '{}',
                 success: function (data) {
                     var s = '<option value="-1"></option>';

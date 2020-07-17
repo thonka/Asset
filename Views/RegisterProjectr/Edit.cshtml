@@ -105,7 +105,7 @@
 
         $.ajax({
             type: "POST",
-            url: "http://localhost:53990/Project/DeleteProject?id=" + ProjectNo
+            url: "/Project/DeleteProject?id=" + ProjectNo
         });
         debugger;
     });
@@ -127,7 +127,7 @@
 
         $.ajax({
             type: "POST",
-            url: "http://localhost:53990/Project/Create",
+            url: "/Project/Create",
             data: dataAll,
 
             contentType: "application/json; charset=utf-8",
@@ -144,7 +144,7 @@
             }
         });
         debugger;
-        window.location.href = "http://localhost:53990/RegisterProjectr/RegisterProject";
+        window.location.href = "/RegisterProjectr/RegisterProject";
     });
 
 
@@ -157,7 +157,7 @@
         $('#AssetHeaderTable').DataTable({
             scrollX: true,
             ajax: {
-                url: "http://localhost:53990/Project/GetLine",
+                url: "/Project/GetLine",
                 type: "get",
                 dataSrc: ''
             },
@@ -202,7 +202,7 @@
 
         $.ajax({
             type: "GET",
-            url: "http://localhost:53990/Project/GetHeadCountID/",
+            url: "/Project/GetHeadCountID/",
             data: {
                 id: id
             },

@@ -55,7 +55,7 @@
             $('#LocationTable').DataTable({
                 scrollX: true,
                 ajax: {
-                    url: "http://localhost:53990/APINotify/GetNotifySchedule",
+                    url: "/APINotify/GetNotifySchedule",
                     type: "get",
                     dataSrc: ''
                 },
@@ -63,7 +63,7 @@
                     {
                         data: 'ID',
                         render: function (data, type, row) {
-                            return '<div align="center"><a href="http://localhost:53990//APINotify/GetNotifyScheduleid?id=' + data + '"><i class="far fa-edit fa-2x"></i></a></div>';
+                            return '<div align="center"><a href="/APINotify/GetNotifyScheduleid?id=' + data + '"><i class="far fa-edit fa-2x"></i></a></div>';
 
                         }, width: '30px'
 

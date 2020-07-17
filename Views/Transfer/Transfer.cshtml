@@ -56,15 +56,15 @@
 
             $('#AssetHeaderTable').DataTable({
                 ajax: {
-                    url: "http://localhost:53990/transferapi/GetAll",
+                    url: "/transferapi/GetAll",
                     type: "get",
                     dataSrc: ''
                 },
                 columns: [
                 {
-                    data: 'ID',
+                    data: 'ProdID',
                     render: function (data, type, row) {
-                        return '<div align="center"><a href="http://localhost:53990/Transfer/Edit/' + data + '"><i class="far fa-edit fa-2x"></i></a></div>';
+                        return '<div align="center"><a href="/Transfer/Edit/' + data + '"><i class="far fa-edit fa-2x"></i></a></div>';
 
                     },
                     width: '30px'

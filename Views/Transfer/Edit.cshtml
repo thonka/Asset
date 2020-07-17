@@ -121,9 +121,9 @@
 
             $.ajax({
                 type: "POST",
-                url: "http://localhost:53990/transferapi/Delete?id=" + TransferNo
+                url: "/transferapi/Delete?id=" + TransferNo
             });
-            debugger;
+            window.location.href = "/Transfer/Transfer";
         });
 
 
@@ -144,7 +144,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "http://localhost:53990/transferapi/create",
+                url: "/transferapi/create",
                 data: dataAll,
 
                 contentType: "application/json; charset=utf-8",
@@ -161,7 +161,7 @@
                 }
             });
             debugger;
-            window.location.href = "http://localhost:53990/Transfer/Transfer";
+            window.location.href = "/Transfer/Transfer";
         });
 
 
@@ -172,14 +172,14 @@
 
         $.ajax({
             type: "GET",
-            url: "http://localhost:53990/api/getAlllocation",
+            url: "/api/getAlllocation",
             data: '{}',
             success: function (data) {
                 var s='<option value="-1"></option>';
                 var c='<option value="-1"></option>';
 
                 for (var i = 0; i < data.length; i++) {
-                    if (data[i].ParentID !== "") {
+                    if (data[i].CompanyID !== "") {
                         s += '<option value="' + data[i].CompanyID + '">' + data[i].CompanyID + ' | ' + data[i].Name1 + '</option>';
                         c += '<option value="' + data[i].CompanyID + '">' + data[i].CompanyID + ' | ' + data[i].Name1 + '</option>';
                     }
@@ -190,48 +190,36 @@
                 
             }
         });
-
+        var id = window.location.pathname.split("/")[3];
 
             var AssetTable= $('#AssetHeaderTable').DataTable({
                 ajax: {
-                    url: "http://localhost:53990/Project/GetLine",
+                    url: "/transferapi/getLineID/",
+                    data: {
+                        id: id
+                    },
                     type: "get",
                     dataSrc: ''
                 },
                 columns: [
-                    {
-                        data: "ItemID",
-                        render: function (data, type, row) {
-                            var idcheck = 'ck' + data;
-                            if (type === 'display') {
-                                var ss = '<div align="center"><input type="checkbox" id="' + idcheck + '"   > </div>';
-
-                                return ss;
-                            }
-
-                            return data;
-
-                        },
-                        width: "10px"
-                    },
                     { data: "ItemID", title: "Asset No." },
-                    { data: "NameTH", title: "Description" },
-                    { data: "ItemCate", title: "Class" },
-                    { data: "ItemType", title: "Sub Class" },
-                    {
-                        data: "BeginQty", title: "Quantity",
-                        render: function (data, type, row) {
-                            if (type === 'display') {
-                                var ss = '<div align="center"><input type="text" class="form-control" value="' + data + '" > </div>';
+                { data: "ItemName", title: "Description" },
+                { data: "ItemCateID", title: "Class" },
+                { data: "ItemTypeID", title: "Sub Class" },
+                {
+                    data: "QtyOrder", title: "Quantity",
+                    render: function (data, type, row) {
+                        if (type === 'display') {
+                            var ss = '<div align="center"><input type="text" class="form-control" value="' + data + '" > </div>';
 
-                                return ss;
-                            }
-
-                            return data;
-
+                            return ss;
                         }
-                    },
-                    { data: "LotNo", title: "Unit" },
+
+                        return data;
+
+                    }
+                },
+                { data: "Packaging", title: "Unit" },
 
 
 
@@ -256,11 +244,11 @@
 
 
 
-            var id = window.location.pathname.split("/")[3];
+            
 
             $.ajax({
                 type: "GET",
-                url: "http://localhost:53990//transferapi/getid/",
+                url: "/transferapi/getid/",
                 data: {
                     id: id
                 },

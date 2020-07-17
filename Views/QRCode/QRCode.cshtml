@@ -68,14 +68,14 @@
         var tableVar;
         $("#checkPrinted").click(function () {
             if ($(this).is(':checked')) {
-                window.location.href = "http://localhost:53990/QRCode/QRCodeTrue";
+                window.location.href = "/QRCode/QRCodeTrue";
             } 
         });
 
          tableVar = $('#QRCodeTable').DataTable({
             scrollX: true,
             ajax: {
-                url: "http://localhost:53990//api/AssetHeader/?isprint=false",
+                url: "/api/AssetHeader/?isprint=false",
                 type: "get",
                 dataSrc: ''
             },
@@ -140,7 +140,7 @@
                 alert(xx);
                 
             }
-            window.location.href = "http://localhost:53990/QRCode/PrintQRCode/"+xx;
+            window.location.href = "/QRCode/PrintQRCode/"+xx;
 
 
         });
