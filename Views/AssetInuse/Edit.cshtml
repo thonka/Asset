@@ -54,11 +54,11 @@
 
                                         <div class="col-md-3">
                                             <span>Asset Code</span><span style="color: red">&nbsp;***</span>
-                                            <input type="text" class="form-control " style="width: 100%" id="AssetCode" required/>
+                                            <input type="text" class="form-control " style="width: 100%" id="AssetCode" disabled="disabled"/>
                                         </div>
                                         <div class="col-md-3">
                                             <span>Asset Name</span><span style="color: red">&nbsp; ***</span>
-                                            <input type="text" class="form-control " style="width: 100%" id="AssetName" required/>
+                                            <input type="text" class="form-control " style="width: 100%" id="AssetName"/>
                                         </div>
                                         <div class="col-md-3">
                                             <span>Location</span><span style="color: red">&nbsp; ***</span>
@@ -241,19 +241,23 @@
         $("#btnGet").click(function() {
 
             var AssetCode = $("#AssetCode").val();
-            var AssetName = $('#AssetName').val();
-            var Location = $('#LocationDropdown').val();
             var StickerName = $('#StickerName').val();
+            var AssetName = $("#AssetName").val();
+
+            var Location = $('#LocationDropdown').val();
             var Department = $('#Department').val();
             var Owner = $('#OwnerDropdown').val();
-            var RefCode = $('#RefCode').val();
+
             var CostCenter = $('#CostDropdown').val();
+            var RefCode = $('#RefCode').val();
+
             var PurchaseDate = $('#PurchaseDate').val();
             var UseDate = $('#UseDate').val();
             var ExpireDate = $('#ExpireDate').val();
             var WarrantyDate = $('#WarrantyDate').val();
             var NextServiceDate = $('#NextServiceDate').val();
             var DisposalDate = $('#DisposalDate').val();
+
             var Building = $('#Building').val();
             var Floor = $('#Floor').val();
             var Room = $('#Room').val();
@@ -261,15 +265,14 @@
             var UnderMaintenance = $('#UnderMaintenance').val();
 
 
-
-            var dataAll = '{ItemID: ' + JSON.stringify(AssetCode) + ',NameTH: ' + JSON.stringify(AssetName) + ',NameEN: ' + JSON.stringify(StickerName) + ',CompanyID: ' + JSON.stringify(Location) + ',UseInLocation: ' + JSON.stringify(Location) + ',Department: ' + JSON.stringify(Department) + ',OwnerID: ' + JSON.stringify(Owner) + ',RefID: ' + JSON.stringify(RefCode) + ',CostCenter: ' + JSON.stringify(CostCenter) + ',PurchaseDate: ' + JSON.stringify(PurchaseDate) + ',UseDate: ' + JSON.stringify(UseDate) + ',ExpireDate: ' + JSON.stringify(ExpireDate) + ',WarrantyDate: ' + JSON.stringify(WarrantyDate) + ',NextServiceDate: ' + JSON.stringify(NextServiceDate) + ',DisposalDate: ' + JSON.stringify(DisposalDate) + ',Building: ' + JSON.stringify(Building) + ',Floor: ' + JSON.stringify(Floor) + ',Room: ' + JSON.stringify(Room) + ',IsInsured: ' + JSON.stringify(Insured) + ',IsUnderMaintenance: ' + JSON.stringify(UnderMaintenance) + '}'
+            var snedData = { ItemID: AssetCode, NameTH: AssetName, NameEN: StickerName, CompanyID: Location, Department: Department, OwnerID: Owner, CostCenter: CostCenter, UseDate: UseDate, PurchaseDate: PurchaseDate, ExpireDate: ExpireDate, WarrantyDate: WarrantyDate, NextServiceDate: NextServiceDate, DisposalDate: DisposalDate, IsInsured: Insured, IsUnderMaintenance: UnderMaintenance, Building: Building, Floor: Floor, Room: Room, RefID: RefCode }
 
 
 
             $.ajax({
                 type: "POST",
-                url: "/api/Create",
-                data: dataAll,
+                url: "/api/New",
+                data: snedData,
 
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -281,11 +284,11 @@
                     alert(response.data);
                 },
                 error: function(response) {
-                    alert(response.data);
+                    window.location.href = "/AssetInuse/Inuse";
                 }
 
             });
-            window.location.href = "/AssetInuse/Inuse";
+            
         });
 
 
@@ -302,8 +305,8 @@
 
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].ParentID!=="") {
-                        s += '<option value="' + data[i].ParentID + '">' + data[i].ParentID + ' | ' + data[i].Name1 + '</option>';
-                        c += '<option value="' + data[i].CompanyID + '">' + data[i].CompanyID + ' | ' + data[i].Name1 + '</option>';
+                        c += '<option value="' + data[i].ParentID + '">' + data[i].ParentID + ' | ' + data[i].Name1 + '</option>';
+                        s += '<option value="' + data[i].CompanyID + '">' + data[i].CompanyID + ' | ' + data[i].Name1 + '</option>';
                     }
                 }
                 $("#LocationDropdown").html(s);

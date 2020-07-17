@@ -207,19 +207,16 @@
                 { data: "ItemCate", title: "Class" },
                 { data: "ItemType", title: "Sub Class" },
                 {
-                    data: "BeginQty", title: "Quantity",
-                    render: function (data, type, row) {
-                        if (type === 'display') {
-                            var ss = '<div align="center"><input type="text" class="form-control" value="' + data + '" > </div>';
-
-                            return ss;
-                        }
+                    data: "BeginQty", title: "Quantity"
+                },
+                {
+                    data: "Remark2", title: "Unit", render: function (data, type, row) {
+                       
 
                         return data;
 
                     }
                 },
-                { data: "Remark2", title: "Unit" },
 
 
 
@@ -269,7 +266,6 @@
                     alert(response.data);
                 },
                 error: function (response) {
-                    alert(response.data);
                 }
             });
 
@@ -281,8 +277,8 @@
                 var Lname = obj[i].NameTH;
                 var LClass = obj[i].ItemCate;
                 var LSubClass = obj[i].ItemType;
-                var LQty = obj[i].Price;
-                var LUnit = obj[i].Unit;
+                var LQty = obj[i].BeginQty;
+                var LUnit = obj[i].Remark2;
 
                 $.ajax({
                     type: "POST",
@@ -296,10 +292,10 @@
                         debugger;
                     },
                     failure: function (response) {
-                        alert(response.data);
+                        
                     },
                     error: function (response) {
-                        alert(response.data);
+                       
                     }
 
                 });

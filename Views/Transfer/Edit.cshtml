@@ -206,19 +206,7 @@
                 { data: "ItemName", title: "Description" },
                 { data: "ItemCateID", title: "Class" },
                 { data: "ItemTypeID", title: "Sub Class" },
-                {
-                    data: "QtyOrder", title: "Quantity",
-                    render: function (data, type, row) {
-                        if (type === 'display') {
-                            var ss = '<div align="center"><input type="text" class="form-control" value="' + data + '" > </div>';
-
-                            return ss;
-                        }
-
-                        return data;
-
-                    }
-                },
+                { data: "QtyOrder", title: "Quantity"},
                 { data: "Packaging", title: "Unit" },
 
 
