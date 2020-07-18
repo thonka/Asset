@@ -1,0 +1,213 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <title>Cinfig - Edit</title>
+
+</head>
+<body class="sb-nav-fixed">
+            <div class="container-fluid">
+
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a href="~/Home/Index">Home</a></li>
+                    <li class="breadcrumb-item active"><a href="~/UserPermission/UserGroupPermission">User Group Permission</a></li>
+                    <li class="breadcrumb-item active">Edit</li>
+                </ol>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                User Info
+                            </div>
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <span style="padding: 0rem 1rem 0rem 0rem">Group ID</span>
+                                    <input type="text" class="form-control " style="width: 100%" id="GroupID" required />
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div align="right" style="padding-top: 10px">
+                                            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                                <input type="submit" id="btnGet" value="Save" class="btn btn-dark" />
+                                                <div class="btn-group" role="group">
+                                                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                                                        <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                                                        <a class="dropdown-item" href="">
+                                                            <span type="submit" id="btnDel">Delete</span>
+                                                        </a>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                User Info
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="tab-content tab-content-solid">
+                                                    <div class="tab-pane fade show active" role="tabpanel">
+                                                        <div class="row ">
+                                                            <div class="col-md-12">
+
+                                                                <div class="row">
+
+                                                                    <div class="col-md-6">
+                                                                        <span>Group Name</span>
+                                                                        <input type="text" class="form-control " style="width: 100%" id="GroupName" />
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        <span>Sort</span>
+                                                                        <input type="text" class="form-control " style="width: 100%" id="Sort" />
+                                                                    </div>
+                                                                    <div class="col-md-3" align="center">
+                                                                        <div style="padding-top: 25px">
+                                                                            <span>Enable &nbsp;</span>
+                                                                            <input type="checkbox" checked data-toggle="toggle" data-size="small" id="EnableDisable">
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+</body>
+
+
+</html>
+
+
+
+
+
+
+<script type="text/javascript">
+    $("#btnGet").click(function () {
+
+        var GroupName = $("#GroupName").val();
+        var Sort = $('#Sort').val();
+        var GroupID = $('#GroupID').val();
+
+
+        var dataAll = '{UserGroupID: ' + JSON.stringify(GroupID) + ',GroupName: ' + JSON.stringify(GroupName) + ',Sort: ' + JSON.stringify(Sort) + '}';
+
+
+
+        $.ajax({
+            type: "POST",
+            url: "/UserConfig/NewGroup",
+            data: dataAll,
+
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                alert("Succuss ");
+                debugger;
+            },
+            failure: function (response) {
+                
+            },
+            error: function (response) {
+                alert("Succuss ");
+                window.location.href = "/UserPermission/UserGroupPermission";
+            }
+        });
+        debugger;
+    });
+
+    $(document).ready(function() {
+        
+        var id = window.location.pathname.split("/")[3];
+        $.ajax({
+            type: "GET",
+            url: "/UserConfig/GetUserGroupId/",
+            data: {
+                id: id
+            },
+            success: function (data) {
+                console.log(data);
+                debugger;
+
+
+                
+
+                document.getElementById("GroupID").value = data[0].UserGroupID;
+                document.getElementById("GroupName").value = data[0].GroupName;
+                document.getElementById("Sort").value = data[0].Sort;
+
+            },
+            error: function (data) {
+
+            }
+        });
+
+
+    });
+    
+
+
+
+</script>
+<script type="text/javascript">
+
+    $("#btnDel").click(function () {
+
+        var GroupID = $("#GroupID").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/UserConfig/DeleteGroup?id=" + GroupID,
+            success: function (response) {
+                alert("Succuss ");
+                window.location.href = "/UserPermission/UserGroupPermission";
+                debugger;
+            },
+            failure: function (response) {
+                alert("failure ");
+            },
+            error: function (response) {
+                alert("error ");
+                window.location.href = "/UserPermission/UserGroupPermission";
+            }
+        });
+        debugger;
+    });
+
+
+</script>

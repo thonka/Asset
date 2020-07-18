@@ -39,10 +39,15 @@
                                 </div>
                                 <hr />
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
+                                        <div align="left" style="padding-top: 10px">
+                                                <input type="submit" id="btnFinish" value="Finish Project" class="btn btn-success" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
                                         <div align="right" style="padding-top: 10px">
                                             <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                                                <input type="submit" id="btnGet" value="Save" class="btn btn-dark" />
+                                                <input type="submit" id="btnGet" value="Save" class="btn btn-dark"/>
                                                 <div class="btn-group" role="group">
                                                     <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
                                                         <i class="fas fa-trash-alt" aria-hidden="true"></i>
@@ -140,6 +145,43 @@
         });
         debugger;
         
+    });
+
+
+    $("#btnFinish").click(function () {
+
+        var ProjectNo = $("#ProjectNo").val();
+        var ProjectDate = $('#ProjectDate').val();
+        var Description = $('#Description').val();
+        var Status = "CLOSE";
+        //var FinishDate = Date(Date.now());
+        var today = new Date();
+
+        var dataAll = '{CountID: ' + JSON.stringify(ProjectNo) + ',CountDate: ' + JSON.stringify(ProjectDate) + ',CountDesc: ' + JSON.stringify(Description) + ',Status: ' + JSON.stringify(Status) + ',ModifiedDate: ' + JSON.stringify(today) + '}';
+
+
+
+        $.ajax({
+            type: "POST",
+            url: "/Project/Create",
+            data: dataAll,
+
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                alert("Succuss ");
+                debugger;
+            },
+            failure: function (response) {
+                alert(response.data);
+            },
+            error: function (response) {
+                alert("Success");
+                window.location.href = "/RegisterProjectr/RegisterProject";
+            }
+        });
+        debugger;
+
     });
 
     $(document).ready(function () {

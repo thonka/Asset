@@ -25,7 +25,7 @@
                             &nbsp; User Group Permission
                         </div>
                         <div class="col-md-1">
-                            <a value="New" class="btn btn-primary" style="width: 100%; font-size: small" href="~/UserPermission/NewUserPermission"><i class="fas fa-plus-circle"></i>&nbsp;  New</a>
+                            <a value="New" class="btn btn-primary" style="width: 100%; font-size: small" href="~/UserPermission/NewGroupPermission"><i class="fas fa-plus-circle"></i>&nbsp;  New</a>
 
                         </div>
                     </div>
@@ -65,8 +65,7 @@
                 columns: [
                     {
                         data: 'UserGroupID', render: function (data, type, row) {
-                            return '<div align="center"><a href="/UserConfig/GetUserGroupId?userid=' + data + '"><i class="fas fa-folder-open fa-2x"></i></a></div>';
-
+                            return '<div align="center"><a href="/UserPermission/EditGroupPermission/' + data + '"><i class="fas fa-folder-open fa-2x"></i></a></div>';
                         }, width: '30px'
 
                     },

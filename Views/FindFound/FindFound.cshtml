@@ -4,7 +4,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.3/js/bootstrap-select.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js" charset="utf-8"></script>
     <title>Asset - Find & Found</title>
 
 </head>
@@ -85,7 +87,9 @@
                                     </div>
 
                                     <div class="card ">
-                                        <div class="card-body"><canvas id="ChartCate" width="100%" height="40"></canvas></div>
+                                        <div class="card-body">
+                                            <canvas id="mycanvas" height="280" width="570"></canvas>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -218,41 +222,37 @@
 
         $('#CateTable').DataTable({
             ajax: {
-                url: "/Project/getCate?id=" + $("#CountDropdown").val(),
+                url: "/Project/getCount",
                 type: "get",
                 dataSrc: ''
             },
             columns: [
                 { data: "ItemCate", title: "Asset Cate" },
                 {
-                    data: "ItemCate",
+                    data: null,
                     title: "Found",
-                    width: '30px',
-                    render: function(data, type, row) {
-
-                        return '<div align="center">0</div>';
-
-                    }
-                },
-                {
-                    data: "ItemCate",
-                    title: "Not Found",
-                    width: '30px',
+                    width: '50px',
                     render: function (data, type, row) {
 
-                        return '<div align="center">'+data.length+'</div>';
-
+                        return '<label>0</label>';
                     }
                 },
                 {
-                    data: "ItemCate",
-                    title: "Miss Location",
-                    width: '30px',
-                    render: function(data, type, row) {
-                        return '<div align="center">0</div>';
-
-                    }
+                    data: "Count",
+                    title: "Not Found",
+                    width: '50px'
                 },
+                {
+                    data: null,
+                    title: "Miss Location",
+                    width: '50px',
+                    render: function (data, type, row) {
+                      
+                        return '<label>0</label>';
+                    }
+                    
+                }
+
             ],
             select: true,
             dom: "Bfrtip",
@@ -263,7 +263,8 @@
 
                 //},
                 { extend: "excel" }
-            ]
+            ],
+            info: false
         });
         $('#notFoundTable').DataTable({
             ajax: {
@@ -375,63 +376,61 @@
         }
     });
 
-
-
-    var ctx2 = document.getElementById("ChartCate");
-    var myLineChart2 = new Chart(ctx2, {
-        type: 'bar',
-
-        data: {
-            labels: ["APPLIANCE7", "ARO4", "AVEQP3", "AVEQP7", "BLDGIMP20", "BLDGIMP20C", "BUILDING30", "COMPUTER3", "COMPUTER5", "CURRDEVEL5", "FIXTURES7", "FURNITURE7", "HVAC3", "HVAC8", "KITCHEQP3", "LABEQUIP5", "LAND", "LNDIMPRV10", "LSEQUIP3", "OFFEQUIP5", "PRINTERS3", "SFTWDEVEL3", "SFTWPURCH3", "SPORTSEQP7", "TELECOM3", "TRUCK", "VEHICLES7", "WEBSITE3"],
-            datasets: [{
-                label: ['Found'],
-                backgroundColor: ['#007bff'],
-                borderColor: "rgba(2,117,216,1)",
-                data: [0]
-            },
-            {
-                label: ['Not Found'],
-                backgroundColor: '#dc3545',
-                borderColor: "rgba(2,117,216,1)",
-                data: [10,4,6,6,9,10,10,9,9,10,9,10,5,5,9,9,4,10,8,9,9,10,10,10,8,5,9,8]
-            },
-            {
-                label: ['Miss Location'],
-                backgroundColor: ['#ffc107'],
-                borderColor: "rgba(2,117,216,1)",
-                data: [0]
+    $.ajax({
+        url: "/Project/getCount",
+        method: "GET",
+        success: function (data) {
+            var player = [];
+            var score = [];
+            for (var i in data) {
+                player.push(data[i].ItemCate);
+                score.push(data[i].Count);
             }
-            ]
+
+            var chartdata = {
+                labels: player,
+                datasets: [{
+                    label: 'Found',
+                    backgroundColor: 'blue',
+                    borderColor: 'blue',
+                    hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+                    hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                    fill: false,
+                    data: '',
+                    responsive: true
+                },
+                {
+                    label: 'Not Found',
+                    backgroundColor:  'red',
+                    borderColor:  'red',
+                    hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+                    hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                    fill: false,
+                    data: score,
+                    responsive: true
+                },
+                {
+                    label: 'Misslocation',
+                    backgroundColor: 'green',
+                    borderColor: 'green',
+                    hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
+                    hoverBorderColor: 'rgba(200, 200, 200, 1)',
+                    fill: false,
+                    data: '',
+                    responsive: true
+                }
+                ]
 
 
+            };
+            var ctx = $("#mycanvas");
+            var myLineChart = new Chart(ctx, {
+                type: 'bar',
+                data: chartdata,
+
+            });
         },
-        options: {
-            scales: {
-                xAxes: [{
-                    time: {
-                        unit: 'Cate'
-                    },
-                    gridLines: {
-                        display: false
-                    },
-                    ticks: {
-                        maxTicksLimit: 6
-                    }
-                }],
-                yAxes: [{
-                    ticks: {
-                        min: 0,
-                        max: 20,
-                        maxTicksLimit: 10
-                    },
-                    gridLines: {
-                        display: true
-                    }
-                }],
-            },
-            legend: {
-                display: false
-            }
+        error: function (data) {
         }
     });
 </script>
