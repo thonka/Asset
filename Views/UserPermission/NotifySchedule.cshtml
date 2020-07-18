@@ -20,17 +20,50 @@
             </ol>
 
             <div class="card mb-12">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-11">
-                            <i class="fa fa-briefcase "></i>
-                            &nbsp; Notity Schedule
+               
+                <div class="card-body">
+
+                    <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <span class="modal-title" id="exampleModalLabel">Schedule Info</span>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row" style="padding: 5px">
+                                        <span>Occurs</span>
+                                        <select class="form-control">
+                                            <option value="No">No</option>
+                                            <option value="Minute" selected="selected">Minute</option>
+                                            <option value="Daily">Daily</option>
+                                        </select>
+                                    </div>
+                                    <div class="row" style="padding: 5px">
+                                        <span>Value</span>
+                                        <select class="form-control" id="LocationDropdown" name="LocationDropdown">
+                                            <option value="60" selected="selected">60</option>
+                                        </select>
+                                    </div>
+                                    <div class="row" style="padding: 5px">
+                                        <span>Description</span>
+                                        <input type="text" class="form-control " style="width: 100%" id="CampusID" value="ดึงข้อมูลและส่งเข้า Dynacmic" />
+                                    </div>
+                                    <hr />
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-
-                </div>
-                <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered nowrap" id="LocationTable" width="100%" cellspacing="0">
                             <thead>
@@ -63,7 +96,7 @@
                     {
                         data: 'ID',
                         render: function (data, type, row) {
-                            return '<div align="center"><a href="/APINotify/GetNotifyScheduleid?id=' + data + '"><i class="far fa-edit fa-2x"></i></a></div>';
+                            return '<div align="center" data-toggle="modal" data-target="#basicExampleModal"><i class="far fa-edit fa-2x"></i></div>';
 
                         }, width: '30px'
 
@@ -74,6 +107,7 @@
                 ],
                 select: true,
                 dom: "Bfrtip",
+                info : false,
 
                 buttons: [
                     //{

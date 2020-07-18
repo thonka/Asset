@@ -22,70 +22,11 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-md-11">
-                        <i class="fa fa-briefcase "></i>
-                        &nbsp; Company Location
                     </div>
                     <div class="col-md-1">
-                        @*<a value="New" class="btn btn-primary" style="width: 100%; font-size: small" href="~/UserPermission/NewUserPermission"><i class="fas fa-plus-circle"></i>&nbsp; New</a>*@
-                        <!-- Button trigger modal -->
                         <div align="right">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#basicExampleModal">
-                                <i class="fas fa-plus-circle"></i>&nbsp; New
-                            </button>
+                            <a value="New" class="btn btn-primary" style="width: 100%; font-size: small" href="~/UserPermission/NewLocation"><i class="fas fa-plus-circle"></i>&nbsp;  New</a>
                         </div>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                             aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header" >
-                                            <span class="modal-title" id="exampleModalLabel">New Location</span>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row" style="padding: 5px">
-                                            <span>ORG. LEVEL</span>
-                                            <select class="form-control">
-                                                <option value="BRANCH">สาขา</option>
-                                                <option value="COMPANY">บริษัท</option>
-                                                <option value="GROUPCOMPANY">กลุ่มบริษัท</option>
-                                            </select>
-                                        </div>
-                                        <div class="row" style="padding: 5px">
-                                            <span>Root</span>
-                                            <select class="form-control" id="LocationDropdown" name="LocationDropdown"></select>  
-                                        </div>
-                                        <div class="row" style="padding: 5px">
-                                            <span>Campus ID </span>
-                                            <input type="text" class="form-control " style="width: 100%" id="CampusID" />
-                                        </div>
-                                        <div class="row" style="padding: 5px">
-                                            <span>Location Name</span>
-                                            <input type="text" class="form-control " style="width: 100%" id="Locationname"/>
-                                        </div>
-                                        <hr/>
-                                        <div class="row" style="padding: 5px">
-                                            <span>Enable/Disable &nbsp;</span>
-                                            <label class="switch">
-                                                <input type="checkbox">
-                                                <span class="slider round"></span>
-                                            </label>
-                                        </div> 
-
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        
 
                     </div>
                 </div>
@@ -125,7 +66,7 @@
                 {
                     data: 'CompanyID',
                     render: function(data, type, row) {
-                        return '<div align="center"><a href="/UserConfig/GetLocationid?userid=' + data + '"><i class="fas fa-folder-open fa-2x"></i></a></div>';
+                        return '<div align="center"><a href="/UserPermission/NewLocation/' + data + '"><i class="fas fa-folder-open fa-2x"></i></a></div>';
 
                     }, width: '30px'
 

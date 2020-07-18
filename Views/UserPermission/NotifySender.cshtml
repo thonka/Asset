@@ -20,17 +20,50 @@
             </ol>
 
             <div class="card mb-12">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-11">
-                            <i class="fa fa-briefcase "></i>
-                            &nbsp; Notity Sender
+                <div class="card-body">
+                    <div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <span class="modal-title" id="exampleModalLabel">Sender Data</span>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row" style="padding: 5px">
+                                        <span>Topic</span>
+                                        <input type="text" class="form-control " style="width: 100%" id="Topic" value="asset_report"  disabled="disabled"/>
+                                    </div>
+                                    <div class="row" style="padding: 5px">
+                                        <span>SMTP</span>
+                                        <input type="text" class="form-control " style="width: 100%" id="SMTP" value="smtp.gmail.com" />
+                                    </div>
+                                    <div class="row" style="padding: 5px">
+                                        <span>Port</span>
+                                        <input type="text" class="form-control " style="width: 100%" id="Port" value="587" />
+                                    </div>
+                                    <div class="row" style="padding: 5px">
+                                        <span>Username</span>
+                                        <input type="text" class="form-control " style="width: 100%" id="Username" value="goodapp.remote@gmail.com" />
+                                    </div>
+                                    <div class="row" style="padding: 5px">
+                                        <span>Password</span>
+                                        <input type="text" class="form-control " style="width: 100%" id="Locationname" value="**********" />
+                                    </div>
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
 
-                </div>
-                <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered nowrap" id="LocationTable" width="100%" cellspacing="0">
                             <thead>
@@ -63,7 +96,7 @@
                     {
                         data: 'ID',
                         render: function (data, type, row) {
-                            return '<div align="center"><a href="/APINotify/GetNotifySenderid?id=' + data + '"><i class="far fa-edit fa-2x"></i></a></div>';
+                            return '<div align="center" data-toggle="modal" data-target="#basicExampleModal"><i class="far fa-edit fa-2x"></i></div>';
 
                         }, width: '30px'
 
@@ -75,7 +108,7 @@
                 ],
                 select: true,
                 dom: "Bfrtip",
-
+                info :false,
                 buttons: [
                     //{
                     //    text: "New"

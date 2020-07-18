@@ -22,7 +22,7 @@
                     <div class="col-md-3">
                         <div class="card mb-4">
                             <div class="card-header">
-                                User Info
+                                <b>Group Info</b>
                             </div>
                             <div class="card-body">
 
@@ -58,18 +58,29 @@
                     <div class="col-md-9">
                         <div class="card mb-4">
                             <div class="card-header">
-                                User Info
+                                <nav>
+                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                        <a class="nav-item nav-link active" id="nav-Summary-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">General</a>
+                                        <a class="nav-item nav-link" id="nav-Found-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Permission</a>
+
+
+                                    </div>
+                                </nav>
                             </div>
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-12">
+
+
+
+
+
+                                <div class="tab-content" id="nav-tabContent">
+                                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="tab-content tab-content-solid">
-                                                    <div class="tab-pane fade show active" role="tabpanel">
-                                                        <div class="row ">
-                                                            <div class="col-md-12">
-
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="tab-content tab-content-solid">
+                                                            <div class="tab-pane fade show active" role="tabpanel">
                                                                 <div class="row">
 
                                                                     <div class="col-md-6">
@@ -89,18 +100,66 @@
 
                                                                 </div>
 
-
-
                                                             </div>
-
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
+                                      
                                     </div>
+                                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
+
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <nav>
+                                                    <div class="nav nav-tabs" id="nav-tab2" role="tablist">
+                                                        <a class="nav-item nav-link active" id="nav-Summary2-tab" data-toggle="tab" href="#nav-home2" role="tab" aria-controls="nav-home" aria-selected="true">Permission In Company</a>
+                                                       
+                                                        <a class="nav-item nav-link" id="nav-NotFound2-tab" data-toggle="tab" href="#nav-contact2" role="tab" aria-controls="nav-contact" aria-selected="false">Permission In Menu</a>
+
+                                                    </div>
+                                                </nav>
+
+                                                <div class="tab-content" id="nav-tabContent2">
+                                                    <div class="tab-pane fade show active" id="nav-home2" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                                                        <table class="table table-bordered nowrap" id="UserCompanyTable" width="100%" cellspacing="0">
+                                                            <thead>
+
+                                                            </thead>
+
+                                                            <tbody></tbody>
+                                                        </table>
+
+
+                                                    </div>
+                                                    
+                                                    <div class="tab-pane fade" id="nav-contact2" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                                        <table class="table table-bordered nowrap" id="UserMenuTable" width="100%" cellspacing="0">
+                                                            <thead>
+
+                                                            </thead>
+
+                                                            <tbody></tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+                                    </div>
+
                                 </div>
+
                             </div>
 
                         </div>
@@ -153,6 +212,183 @@
 
     $(document).ready(function() {
         
+            $('#UserGroupTable').DataTable({
+                ajax: {
+                    url: "/Permission/GetUserGroupAll",
+                    type: "get",
+                    dataSrc: ''
+                },
+                columns: [
+                    {
+                        data: "UserGroupID",
+                        render: function (data, type, row) {
+                            if (type === 'display') {
+
+                                return '<div align="center"><input type="checkbox" ></div>';
+                            }
+
+                            return data;
+
+                        },
+                        width: "30px"
+                    },
+                    { data: "UserGroupID", title: "Group ID", width: "100px" },
+                    { data: "GroupName", title: "Group Name" }
+
+                ],
+                dom: "Bfrtip",
+
+                buttons: [
+                    //{ extend: "print" }
+                ],
+                searching: false
+
+
+
+            });
+            $('#UserCompanyTable').DataTable({
+
+                ajax: {
+                    url: "/UserConfig/GetLocationAll",
+                    type: "get",
+                    dataSrc: ''
+                },
+                columns: [
+                    {
+                        data: "CompanyID",
+                        render: function (data, type, row) {
+                            if (type === 'display') {
+
+                                return '<div align="center"><input type="checkbox" checked="checked"></div>';
+                            }
+
+                            return data;
+
+                        },
+                        width: "30px"
+                    },
+                    { data: "CompanyID", title: "Company ID", width: "50px" },
+                    { data: "Name1", title: "Description" }
+
+                ],
+                dom: "Bfrtip",
+
+                buttons: [
+                    //{ extend: "print" }
+                ],
+                searching: false
+
+
+
+            });
+
+            $('#UserMenuTable').DataTable({
+
+                ajax: {
+                    url: "/Permission/GetUserMenu",
+                    type: "get",
+                    dataSrc: ''
+                },
+                columns: [
+
+                    { data: "GroupID", title: "Menu group", width: "100px" },
+                    { data: "Name", title: "Menu name" },
+                    {
+                        data: "NeedOpenPermission", title: "Open", width: "50px",
+                        render: function (data, type, row) {
+                            if (type === 'display') {
+                                if (data === false) {
+                                    return '<div align="center"><input type="checkbox" disabled="disabled"></div>';
+                                } else {
+                                    return '<div align="center"><input type="checkbox" checked="checked"></div>';
+                                }
+
+                            }
+
+                            return data;
+
+                        }
+
+                    },
+                    {
+                        data: "NeedCreatePermission", title: "Create", width: "50px",
+                        render: function (data, type, row) {
+                            if (type === 'display') {
+                                if (data === false) {
+                                    return '<div align="center"><input type="checkbox" disabled="disabled"></div>';
+                                } else {
+                                    return '<div align="center"><input type="checkbox" checked="checked"></div>';
+                                }
+
+                            }
+
+                            return data;
+
+                        }
+                    },
+                    {
+                        data: "NeedEditPermission", title: "Edit", width: "50px",
+                        render: function (data, type, row) {
+                            if (type === 'display') {
+                                if (data === false) {
+                                    return '<div align="center"><input type="checkbox" disabled="disabled"></div>';
+                                } else {
+                                    return '<div align="center"><input type="checkbox" checked="checked"></div>';
+                                }
+
+                            }
+
+                            return data;
+
+                        }
+                    },
+                    {
+                        data: "NeedDeletePermission", title: "Delete", width: "50px",
+                        render: function (data, type, row) {
+                            if (type === 'display') {
+                                if (data === false) {
+                                    return '<div align="center"><input type="checkbox" disabled="disabled"></div>';
+                                } else {
+                                    return '<div align="center"><input type="checkbox" checked="checked"></div>';
+                                }
+
+                            }
+
+                            return data;
+
+                        }
+
+                    },
+                    {
+                        data: "NeedPrintPermission", title: "Print", width: "50px",
+                        render: function (data, type, row) {
+                            if (type === 'display') {
+                                if (data === false) {
+                                    return '<div align="center"><input type="checkbox" disabled="disabled"></div>';
+                                } else {
+                                    return '<div align="center"><input type="checkbox" checked="checked"></div>';
+                                }
+
+                            }
+
+                            return data;
+
+                        }
+                    }
+
+                ],
+                dom: "Bfrtip",
+
+                buttons: [
+                    //{ extend: "print" }
+                ],
+                searching: false
+
+
+
+            });
+
+
         var id = window.location.pathname.split("/")[3];
         $.ajax({
             type: "GET",

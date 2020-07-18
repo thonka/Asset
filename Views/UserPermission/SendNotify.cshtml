@@ -23,8 +23,6 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-11">
-                            <i class="fa fa-briefcase "></i>
-                            &nbsp; Send Notity
                         </div>
                         <div class="col-md-1">
                             @*<a value="New" class="btn btn-primary" style="width: 100%; font-size: small" href="~/UserPermission/NewUserPermission"><i class="fas fa-plus-circle"></i>&nbsp; New</a>*@
@@ -47,40 +45,17 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
+                                            
                                             <div class="row" style="padding: 5px">
-                                                <span>ORG. LEVEL</span>
-                                                <select class="form-control">
-                                                    <option value="BRANCH">สาขา</option>
-                                                    <option value="COMPANY">บริษัท</option>
-                                                    <option value="GROUPCOMPANY">กลุ่มบริษัท</option>
-                                                </select>
-                                            </div>
-                                            <div class="row" style="padding: 5px">
-                                                <span>Root</span>
-                                                <select class="form-control" id="LocationDropdown" name="LocationDropdown"></select>
-                                            </div>
-                                            <div class="row" style="padding: 5px">
-                                                <span>Campus ID </span>
-                                                <input type="text" class="form-control " style="width: 100%" id="CampusID" />
-                                            </div>
-                                            <div class="row" style="padding: 5px">
-                                                <span>Location Name</span>
-                                                <input type="text" class="form-control " style="width: 100%" id="Locationname" />
-                                            </div>
-                                            <hr />
-                                            <div class="row" style="padding: 5px">
-                                                <span>Enable/Disable &nbsp;</span>
-                                                <label class="switch">
-                                                    <input type="checkbox">
-                                                    <span class="slider round"></span>
-                                                </label>
+                                                <span>E-MAIL</span>
+                                                <input type="text" class="form-control " style="width: 100%" id="EMail" />
                                             </div>
 
 
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Save</button>
+                                            <button type="button" class="btn btn-primary" id="btnGet">Add</button>
                                         </div>
                                     </div>
                                 </div>
@@ -94,7 +69,7 @@
 
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
+                    <div class="table-responsive" >
                         <table class="table table-striped table-bordered nowrap" id="LocationTable" width="100%" cellspacing="0">
                             <thead>
 
@@ -111,7 +86,48 @@
     </main>
 
     <script>
+        $("#btnGet").click(function () {
 
+            var EMail = $("#EMail").val();
+
+
+            var dataAll = '{NotifyValue: ' + JSON.stringify(EMail) + '}';
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "/APINotify/AddEmail",
+                data: dataAll,
+
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    alert("Succuss ");
+                    debugger;
+                },
+                failure: function (response) {
+                    alert("Succuss ");
+                    window.location.href = "/UserPermission/SendNotify";
+                },
+                error: function (response) {
+                    alert("Succuss ");
+                    window.location.href = "/UserPermission/SendNotify";
+                }
+            });
+            debugger;
+        });
+
+        $("#btnDel").click(function () {
+
+            var EMail = $("#EMail").val();
+
+            $.ajax({
+                type: "POST",
+                url: "/APINotify/DeleteEmail?id=" + EMail
+            });
+            debugger;
+        });
         $(document).ready(function () {
 
 
@@ -126,7 +142,7 @@
                     {
                         data: 'ID',
                         render: function (data, type, row) {
-                            return '<div align="center"><a href="/APINotify/GetSendNotifyid?id=' + data + '"><i class="far fa-edit fa-2x"></i></a></div>';
+                            return '<div align="center"><i class="fas fa-trash fa-2x" id="btnDel" style="color: red" ></i></div>';
 
                         },width: '30px'
 
@@ -135,6 +151,7 @@
                 ],
                 select: true,
                 dom: "Bfrtip",
+                info:false,
 
                 buttons: [
                     //{

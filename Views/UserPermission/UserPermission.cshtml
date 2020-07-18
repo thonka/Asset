@@ -21,8 +21,6 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-11">
-                            <i class="fa fa-briefcase "></i>
-                            &nbsp; User Permission
                         </div>
                         <div class="col-md-1">
                             <a value="New" class="btn btn-primary" style="width: 100%; font-size: small" href="~/UserPermission/NewUserPermission"><i class="fas fa-plus-circle"></i>&nbsp;  New</a>
@@ -56,7 +54,6 @@
 
 
             $('#UserTable').DataTable({
-                scrollX: true,
                 ajax: {
                     url: "/UserConfig/GetAll",
                     type: "get",
@@ -84,6 +81,7 @@
                 ],
                 select: true,
                 dom: "Bfrtip",
+                info : false,
 
                 buttons: [
                     //{

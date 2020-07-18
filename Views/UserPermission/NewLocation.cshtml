@@ -1,0 +1,230 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <title>Cinfig - Create</title>
+
+</head>
+<body class="sb-nav-fixed">
+    <div class="container-fluid">
+
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="~/Home/Index">Home</a></li>
+            <li class="breadcrumb-item active"><a href="~/UserPermission/CompanyLocation">Company Location</a></li>
+            <li class="breadcrumb-item active">Create</li>
+        </ol>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <b>Create</b>
+
+                    </div>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <span style="padding: 0rem 1rem 0rem 0rem">Location ID</span>
+                            <input type="text" class="form-control " style="width: 100%" id="LocationID" required />
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div align="right" style="padding-top: 10px">
+                                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                        <input type="submit" id="btnGet" value="Save" class="btn btn-dark" />
+                                        <div class="btn-group" role="group">
+                                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                                                <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                                                <a class="dropdown-item" href="">
+                                                    <span type="submit" id="btnDel">Delete</span>
+                                                </a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <b>Group Info</b>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="tab-content tab-content-solid">
+                                            <div class="tab-pane fade show active" role="tabpanel">
+                                                <div class="row ">
+                                                    <div class="col-md-12">
+
+                                                        <div class="row">
+
+                                                            <div class="col-md-3">
+                                                                <span>Location Name</span>
+                                                                <input type="text" class="form-control " style="width: 100%" id="LocationName"/>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <span>Root</span><span style="color: red">&nbsp; ***</span>
+                                                                <select class="form-control" id="LocationDropdown"></select>
+                                                            </div>
+                                                            <div class="col-md-3">
+
+                                                                    <span>ORG. LEVEL &nbsp;</span>
+                                                                <select id="cboTypeID" class="form-control ">
+                                                                    <option value="GROUP" selected="selected">GROUP</option>
+                                                                    <option value="COMPANY">COMPANY</option>
+                                                                    <option value="BRANCH">BRANCH</option>
+
+                                                                </select>
+
+
+
+                                                            </div>
+                                                            <div class="col-md-3" align="center">
+                                                                <div style="padding-top: 25px">
+                                                                    <span>Enable &nbsp;</span>
+                                                                    <input type="checkbox" checked data-toggle="toggle" data-size="small" id="EnableDisable">
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>
+
+
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+    $.ajax({
+        type: "GET",
+        url: "/api/getAlllocation",
+        data: '{}',
+        success: function (data) {
+            var s = '<option></option>';
+
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].ParentID !== "") {
+                    s += '<option value="' + data[i].CompanyID + '">' + data[i].CompanyID + ' | ' + data[i].Name1 + '</option>';
+                }
+            }
+            $("#LocationDropdown").html(s);
+        }
+    });
+
+    var id = window.location.pathname.split("/")[3];
+    $.ajax({
+        type: "GET",
+        url: "/UserConfig/GetEditLocation/",
+        data: {
+            id: id
+        },
+        success: function (data) {
+            console.log(data);
+            debugger;
+
+
+
+
+            document.getElementById("LocationID").value = data[0].CompanyID;
+            document.getElementById("LocationName").value = data[0].Name1;
+            document.getElementById("cboTypeID").value = data[0].TypeID;
+            document.getElementById("LocationDropdown").value = data[0].ParentID;
+
+        },
+        error: function (data) {
+
+        }
+    });
+    });
+
+    $("#btnGet").click(function () {
+
+        var LocationID = $("#LocationID").val();
+        var LocationName = $('#LocationName').val();
+        var cboTypeID = $('#cboTypeID').val();
+        var Root = $('#LocationDropdown').val();
+
+
+        var dataAll = '{CompanyID: ' + JSON.stringify(LocationID) + ',Name1: ' + JSON.stringify(LocationName) + ',TypeID: ' + JSON.stringify(cboTypeID) + ',ParentID: ' + JSON.stringify(Root) + '}';
+
+
+
+        $.ajax({
+            type: "POST",
+            url: "/UserConfig/NewLocation",
+            data: dataAll,
+
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                alert("Succuss ");
+                debugger;
+            },
+            failure: function (response) {
+                alert("Succuss ");
+                window.location.href = "/UserPermission/CompanyLocation";
+            },
+            error: function (response) {
+                alert("Succuss ");
+                window.location.href = "/UserPermission/CompanyLocation";
+            }
+        });
+        debugger;
+    });
+
+
+</script>
+<script type="text/javascript">
+
+    $("#btnDel").click(function () {
+
+        var ComId = $("#LocationID").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/UserConfig/DeleteLocation?id=" + ComId
+        });
+        debugger;
+        window.location.href = "/UserPermission/CompanyLocation";
+    });
+
+
+</script>
