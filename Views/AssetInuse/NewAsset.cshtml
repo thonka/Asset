@@ -9,6 +9,28 @@
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <title>Asset - New Asset</title>
 
+
+    <style>
+        #custom-button {
+            
+  color: white;
+  background-color: #696969;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#custom-button:hover {
+  background-color: #808080;
+}
+
+#custom-text {
+  margin-left: 10px;
+  font-family: sans-serif;
+  color: #aaa;
+}
+
+    </style>
+
 </head>
 <body class="sb-nav-fixed">
 <div class="container-fluid">
@@ -191,20 +213,18 @@
 
                                 <div class="row ">
                                     <div class="card-body">
-                                        <div class="row ">
-                                            <div class="col-md-12">
                                                 <div class="row ">
                                                     <div class="col-md-12">
-                                                        <div class="btn-group" role="group">
-                                                            <a class="btn btn-default" href="">
-                                                                <i class="fa fa-camera-retro fa-2x"></i>
-                                                                <span>&nbsp;   Upload photo</span>
-                                                            </a>
-                                                        </div>
+                                                        <input type="file" id="real-file" hidden="hidden"/>
+                                                        <button type="button" id="custom-button" ><i class="fa fa-camera-retro fa-1x"></i> &nbsp; Upload photo </button>
+                                                        <span id="custom-text"></span>
+                                                       
                                                     </div>
                                                 </div>
-                                                <div class="row" style="font-size: small">
-                                                    <div style="overflow-x: auto; width: 100%"></div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <img id="blah" />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -218,8 +238,6 @@
         </div>
     </div>
 </div>
-</div>
-</div>
 
 </body>
 
@@ -227,6 +245,37 @@
 </html>
 
 <script>
+    var realFileBtn = document.getElementById("real-file");
+    var customBtn = document.getElementById("custom-button");
+    var customTxt = document.getElementById("custom-text");
+
+    customBtn.addEventListener("click", function () {
+        realFileBtn.click();
+    });
+
+    realFileBtn.addEventListener("change", function () {
+        if (realFileBtn.value) {
+            customTxt.innerHTML = realFileBtn.value.match(
+              /[\/\\]([\w\d\s\.\-\(\)]+)$/
+            )[1];
+        } 
+    });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
+        }
+    }
+
+    $("#real-file").change(function () {
+        readURL(this);
+    });
+
     $(document).ready(function () {
         
         
@@ -240,7 +289,7 @@
                 
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].ParentID!=="") {
-                       c += '<option value="' + data[i].ParentID + '">' + data[i].ParentID + ' | ' + data[i].Name1 + '</option>';
+                        c += '<option value="' + data[i].ParentID + '">' + data[i].ParentID + ' | ' + data[i].Name1 + '</option>';
                         s += '<option value="' + data[i].CompanyID + '">' + data[i].CompanyID + ' | ' + data[i].Name1 + '</option>';
                     }
                 }
@@ -298,9 +347,10 @@
         var Room = $('#Room').val();
         var Insured = $('#Insured').val();
         var UnderMaintenance = $('#UnderMaintenance').val();
+        var realfile = $('#real-file').val();
 
 
-        var snedData = { ItemID: AssetCode, NameTH: AssetName, NameEN: StickerName, CompanyID: Location, Department: Department, OwnerID: Owner, CostCenter: CostCenter, UseDate: UseDate, PurchaseDate: PurchaseDate, ExpireDate: ExpireDate, WarrantyDate: WarrantyDate, NextServiceDate: NextServiceDate, DisposalDate: DisposalDate, IsInsured: Insured, IsUnderMaintenance: UnderMaintenance, Building: Building, Floor: Floor, Room: Room, RefID: RefCode }
+        var snedData = { ItemID: AssetCode, NameTH: AssetName, NameEN: StickerName, CompanyID: Location, Department: Department, OwnerID: Owner, CostCenter: CostCenter, UseDate: UseDate, PurchaseDate: PurchaseDate, ExpireDate: ExpireDate, WarrantyDate: WarrantyDate, NextServiceDate: NextServiceDate, DisposalDate: DisposalDate, IsInsured: Insured, IsUnderMaintenance: UnderMaintenance, Building: Building, Floor: Floor, Room: Room, RefID: RefCode, VendorName: realfile }
 
         $.ajax({
             type: "POST",

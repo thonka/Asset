@@ -8,207 +8,224 @@
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <title>Asset - Edit Asset</title>
+    <style>
+   
+        #custom-button {
+            
+  color: white;
+  background-color: #696969;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#custom-button:hover {
+  background-color: #808080;
+}
+
+#custom-text {
+  margin-left: 10px;
+  font-family: sans-serif;
+  color: #aaa;
+}
+
+    </style>
 
 </head>
 <body class="sb-nav-fixed">
-<form>
-<main>
-<div class="container-fluid">
+    <div class="container-fluid">
 
-<ol class="breadcrumb mb-4">
-    <li class="breadcrumb-item"><a href="~/Home/Index">Asset</a></li>
-    <li class="breadcrumb-item"><a href="~/AssetInuse/Inuse">In Use</a></li>
-    <li class="breadcrumb-item active">Edit</li>
-</ol>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="~/Home/Index">Asset</a></li>
+            <li class="breadcrumb-item"><a href="~/AssetInuse/Inuse">In Use</a></li>
+            <li class="breadcrumb-item active">Edit</li>
+        </ol>
 
-<div class="card mb-4">
-<div class="card-header">
-<div class="card-body">
-
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="tab-content tab-content-solid">
-                        <div class="tab-pane fade show active" role="tabpanel">
-                            <div class="row ">
+        <div class="card mb-4">
+            <div class="card-header">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
                                 <div class="col-md-12">
-                                    <div class="row " hidden="hidden">
-                                        <div class="col-md-3">
-                                            <span>Barcode</span>
-                                            <input type="text" class="form-control form-control-sm" placeholder/>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span>Item Type</span>
-                                            <div class="form-group">
-                                                <select class="form-control form-control-sm">
-                                                    <option selected="selected" value="สินค้า">สินค้า</option>
-                                                    <option value="บริการ">บริการ</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-
-                                        <div class="col-md-3">
-                                            <span>Asset Code</span><span style="color: red">&nbsp;***</span>
-                                            <input type="text" class="form-control " style="width: 100%" id="AssetCode" />
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span>Asset Name</span><span style="color: red">&nbsp; ***</span>
-                                            <input type="text" class="form-control " style="width: 100%" id="AssetName"/>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span>Location</span><span style="color: red">&nbsp; ***</span>
-                                            <select class="form-control" id="LocationDropdown" name="LocationDropdown"></select>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div style="padding-top: 25px">
-                                                <span>Enable/Disable </span>
-                                                <input type="checkbox" checked data-toggle="toggle" data-size="small" id="EnableDisable">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr/>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <span>Description</span>
-                                            <input type="text" class="form-control" style="width: 100%" id="StickerName"/>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span>Department</span>
-                                            <div class="form-group">
-                                                <select class="form-control " id="Department">
-                                                    <option></option>
-                                                    <option value="IT Naja">IT Naja</option>
-                                                    <option value="LOGISTIC">LOGISTIC</option>
-                                                    <option value="TRANSPORTS">TRANSPORTS</option>
-                                                    <option value="ACCOUNTING">ACCOUNTING</option>
-                                                    <option value="SALES">SALES</option>
-                                                    <option value="WAREHOUSE">WAREHOUSE</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span>Owner</span>
-                                            <select class="form-control" id="OwnerDropdown"></select>
-                                        </div>
-                                    </div>
-                                    <div class="row ">
-                                        <div class="col-md-3">
-                                            <span>Ref. Code</span>
-                                            <input type="text" class="form-control " id="RefCode"/>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span>Cost center</span>
-                                            <div class="form-group">
-                                                <select class="form-control" id="CostDropdown"></select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span>Purchase Date</span>
-                                            <input type="date" class="form-control  " id="PurchaseDate"/>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span>Use Date</span>
-                                            <input type="date" class="form-control" id="UseDate"/>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <span>Expire Date</span>
-                                            <input type="date" class="form-control " id="ExpireDate"/>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span>Warranty Date</span>
-                                            <input type="date" class="form-control " id="WarrantyDate"/>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span>Next Service Date</span>
-                                            <input type="date" class="form-control " id="NextServiceDate"/>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span>Disposal Date</span>
-                                            <input type="date" class="form-control " id="DisposalDate"/>
-                                        </div>
-                                    </div>
-                                    <div class="row " style="padding-top: 15px">
-                                        <div class="col-md-3">
-                                            <span>Building</span>
-                                            <input type="text" class="form-control " style="width: 100%;" id="Building">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span>Floor</span>
-                                            <input type="text" class="form-control " style="width: 100%;" id="Floor">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span>Room</span>
-                                            <input type="text" class="form-control " style="width: 100%;" id="Room">
-                                        </div>
-                                        <div class="col-md-3">
-
-                                            <div class="input-group" style="padding-top: 30px">
-                                                <div class="input-group-append">
-                                                    <label class="switch">
-                                                        <input type="checkbox" id="Insured" value="false">
-                                                        <span class="slider round"></span>
-                                                    </label>
-                                                    <span>&nbsp; Insured &nbsp;</span>
-                                                    <label class="switch">
-                                                        <input type="checkbox" id="UnderMaintenance" value="false">
-                                                        <span class="slider round"></span>
-                                                    </label>
-                                                    <span>&nbsp; Under Maintenance </span>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row ">
-
-
-                                        <div class="col-md-12">
-                                            <div align="right" style="padding-top: 10px">
-                                                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                                                    <input type="submit" id="btnGet" value="Save" class="btn btn-dark"/>
-                                                    <div class="btn-group" role="group">
-                                                        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
-                                                            <i class="fa fa-print" aria-hidden="true"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
-                                                           
-                                                                <span type="submit" id="PrintQRCode" >&nbsp; QR CODE</span>
-                                                           
+                                    <div class="tab-content tab-content-solid">
+                                        <div class="tab-pane fade show active" role="tabpanel">
+                                            <div class="row ">
+                                                <div class="col-md-12">
+                                                    <div class="row " hidden="hidden">
+                                                        <div class="col-md-3">
+                                                            <span>Barcode</span>
+                                                            <input type="text" class="form-control form-control-sm" placeholder />
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <span>Item Type</span>
+                                                            <div class="form-group">
+                                                                <select class="form-control form-control-sm">
+                                                                    <option selected="selected" value="สินค้า">สินค้า</option>
+                                                                    <option value="บริการ">บริการ</option>
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                    <div class="row">
+
+                                                        <div class="col-md-3">
+                                                            <span>Asset Code</span><span style="color: red">&nbsp;***</span>
+                                                            <input type="text" class="form-control " style="width: 100%" id="AssetCode" />
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <span>Asset Name</span><span style="color: red">&nbsp; ***</span>
+                                                            <input type="text" class="form-control " style="width: 100%" id="AssetName" />
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <span>Location</span><span style="color: red">&nbsp; ***</span>
+                                                            <select class="form-control" id="LocationDropdown" name="LocationDropdown"></select>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div style="padding-top: 25px">
+                                                                <span>Enable/Disable </span>
+                                                                <input type="checkbox" checked data-toggle="toggle" data-size="small" id="EnableDisable">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr />
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <span>Description</span>
+                                                            <input type="text" class="form-control" style="width: 100%" id="StickerName" />
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <span>Department</span>
+                                                            <div class="form-group">
+                                                                <select class="form-control " id="Department">
+                                                                    <option></option>
+                                                                    <option value="IT Naja">IT Naja</option>
+                                                                    <option value="LOGISTIC">LOGISTIC</option>
+                                                                    <option value="TRANSPORTS">TRANSPORTS</option>
+                                                                    <option value="ACCOUNTING">ACCOUNTING</option>
+                                                                    <option value="SALES">SALES</option>
+                                                                    <option value="WAREHOUSE">WAREHOUSE</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <span>Owner</span>
+                                                            <select class="form-control" id="OwnerDropdown"></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row ">
+                                                        <div class="col-md-3">
+                                                            <span>Ref. Code</span>
+                                                            <input type="text" class="form-control " id="RefCode" />
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <span>Cost center</span>
+                                                            <div class="form-group">
+                                                                <select class="form-control" id="CostDropdown"></select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <span>Purchase Date</span>
+                                                            <input type="date" class="form-control  " id="PurchaseDate" />
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <span>Use Date</span>
+                                                            <input type="date" class="form-control" id="UseDate" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <span>Expire Date</span>
+                                                            <input type="date" class="form-control " id="ExpireDate" />
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <span>Warranty Date</span>
+                                                            <input type="date" class="form-control " id="WarrantyDate" />
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <span>Next Service Date</span>
+                                                            <input type="date" class="form-control " id="NextServiceDate" />
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <span>Disposal Date</span>
+                                                            <input type="date" class="form-control " id="DisposalDate" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="row " style="padding-top: 15px">
+                                                        <div class="col-md-3">
+                                                            <span>Building</span>
+                                                            <input type="text" class="form-control " style="width: 100%;" id="Building">
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <span>Floor</span>
+                                                            <input type="text" class="form-control " style="width: 100%;" id="Floor">
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <span>Room</span>
+                                                            <input type="text" class="form-control " style="width: 100%;" id="Room">
+                                                        </div>
+                                                        <div class="col-md-3">
+
+                                                            <div class="input-group" style="padding-top: 30px">
+                                                                <div class="input-group-append">
+                                                                    <label class="switch">
+                                                                        <input type="checkbox" id="Insured" value="false">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                    <span>&nbsp; Insured &nbsp;</span>
+                                                                    <label class="switch">
+                                                                        <input type="checkbox" id="UnderMaintenance" value="false">
+                                                                        <span class="slider round"></span>
+                                                                    </label>
+                                                                    <span>&nbsp; Under Maintenance </span>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="row ">
+
+
+                                                        <div class="col-md-12">
+                                                            <div align="right" style="padding-top: 10px">
+                                                                <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                                                    <input type="submit" id="btnGet" value="Save" class="btn btn-dark" />
+                                                                    <div class="btn-group" role="group">
+                                                                        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="False">
+                                                                            <i class="fa fa-print" aria-hidden="true"></i>
+                                                                        </button>
+                                                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+
+                                                                            <span type="submit" id="PrintQRCode">&nbsp; QR CODE</span>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <hr />
                                                 </div>
 
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <hr/>
-                                </div>
-
-                                <div class="row ">
-                                    <div class="card-body">
-                                        <div class="row ">
-                                            <div class="col-md-12">
                                                 <div class="row ">
-                                                    <div class="col-md-12">
-                                                        <div class="btn-group" role="group">
-                                                            <a class="btn btn-default" href="">
-                                                                <i class="fa fa-camera-retro fa-2x"></i>
-                                                                <span>&nbsp;   Upload photo</span>
-                                                            </a>
+                                                    <div class="card-body">
+                                                        <div class="row ">
+                                                            <div class="col-md-12">
+                                                                <input type="file" id="real-file" hidden="hidden" />
+                                                                <button type="button" id="custom-button"><i class="fa fa-camera-retro fa-1x"></i> &nbsp; Upload photo </button>
+                                                                <span id="custom-text"></span>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <img id="blah" />
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="row" style="font-size: small">
-                                                    <div style="overflow-x: auto; width: 100%"></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -221,75 +238,95 @@
             </div>
         </div>
     </div>
-</div>
-</div>
-</div>
-</main>
-
-</form>
 </body>
 
 
 </html>
 
-<script type="text/javascript">
-    var d = new Date();
-        $("#btnGet").click(function() {
+<script>
+    var realFileBtn = document.getElementById("real-file");
+    var customBtn = document.getElementById("custom-button");
+    var customTxt = document.getElementById("custom-text");
 
-            var AssetCode = $("#AssetCode").val();
-            var StickerName = $('#StickerName').val();
-            var AssetName = $("#AssetName").val();
+    customBtn.addEventListener("click", function () {
+        realFileBtn.click();
+    });
 
-            var Location = $('#LocationDropdown').val();
-            var Department = $('#Department').val();
-            var Owner = $('#OwnerDropdown').val();
+    realFileBtn.addEventListener("change", function () {
+        if (realFileBtn.value) {
+            customTxt.innerHTML = realFileBtn.value.match(
+              /[\/\\]([\w\d\s\.\-\(\)]+)$/
+            )[1];
+        }
+    });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
-            var CostCenter = $('#CostDropdown').val();
-            var RefCode = $('#RefCode').val();
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
 
-            var PurchaseDate = $('#PurchaseDate').val();
-            var UseDate = $('#UseDate').val();
-            var ExpireDate = $('#ExpireDate').val();
-            var WarrantyDate = $('#WarrantyDate').val();
-            var NextServiceDate = $('#NextServiceDate').val();
-            var DisposalDate = $('#DisposalDate').val();
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
+        }
+    }
 
-            var Building = $('#Building').val();
-            var Floor = $('#Floor').val();
-            var Room = $('#Room').val();
-            var Insured = $('#Insured').val();
-            var UnderMaintenance = $('#UnderMaintenance').val();
+    $("#real-file").change(function () {
+        readURL(this);
+    });
+    $("#btnGet").click(function () {
+
+        var AssetCode = $("#AssetCode").val();
+        var StickerName = $('#StickerName').val();
+        var AssetName = $("#AssetName").val();
+
+        var Location = $('#LocationDropdown').val();
+        var Department = $('#Department').val();
+        var Owner = $('#OwnerDropdown').val();
+
+        var CostCenter = $('#CostDropdown').val();
+        var RefCode = $('#RefCode').val();
+
+        var PurchaseDate = $('#PurchaseDate').val();
+        var UseDate = $('#UseDate').val();
+        var ExpireDate = $('#ExpireDate').val();
+        var WarrantyDate = $('#WarrantyDate').val();
+        var NextServiceDate = $('#NextServiceDate').val();
+        var DisposalDate = $('#DisposalDate').val();
+
+        var Building = $('#Building').val();
+        var Floor = $('#Floor').val();
+        var Room = $('#Room').val();
+        var Insured = $('#Insured').val();
+        var UnderMaintenance = $('#UnderMaintenance').val();
+        var realfile = $('#real-file').val();
 
 
-            var snedData = { ItemID: AssetCode, NameTH: AssetName, NameEN: StickerName, CompanyID: Location, Department: Department, OwnerID: Owner, CostCenter: CostCenter, UseDate: UseDate, PurchaseDate: PurchaseDate, ExpireDate: ExpireDate, WarrantyDate: WarrantyDate, NextServiceDate: NextServiceDate, DisposalDate: DisposalDate, IsInsured: Insured, IsUnderMaintenance: UnderMaintenance, Building: Building, Floor: Floor, Room: Room, RefID: RefCode }
+        var snedData = { ItemID: AssetCode, NameTH: AssetName, NameEN: StickerName, CompanyID: Location, Department: Department, OwnerID: Owner, CostCenter: CostCenter, UseDate: UseDate, PurchaseDate: PurchaseDate, ExpireDate: ExpireDate, WarrantyDate: WarrantyDate, NextServiceDate: NextServiceDate, DisposalDate: DisposalDate, IsInsured: Insured, IsUnderMaintenance: UnderMaintenance, Building: Building, Floor: Floor, Room: Room, RefID: RefCode, VendorName: realfile }
 
 
 
-            $.ajax({
-                type: "POST",
-                url: "/api/New",
-                data: snedData,
+        $.ajax({
+            type: "POST",
+            url: "/api/New",
+            data: snedData,
 
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function() {
-                    alert("Succuss " );
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function () {
+                alert("Succuss ");
 
-                },
-                failure: function(response) {
-                    alert(response.data);
-                },
-                error: function(response) {
-                    window.location.href = "/AssetInuse/Inuse";
-                }
+            },
+            failure: function (response) {
+                alert(response.data);
+            },
+            error: function (response) {
+                window.location.href = "/AssetInuse/Inuse";
+            }
 
-            });
-            
         });
 
-
-</script>
-<script>
+    });
     $(document).ready(function () {
         $.ajax({
             type: "GET",
@@ -337,7 +374,7 @@
             url: "/api/getid/",
             data: {
                 id: id
-    },
+            },
             success: function (data) {
                 console.log(data);
                 debugger;
@@ -374,6 +411,7 @@
                 document.getElementById("Room").value = data[0].Room;
                 document.getElementById("Insured").value = data[0].IsInsured;
                 document.getElementById("UnderMaintenance").value = data[0].IsUnderMaintenance;
+                document.getElementById("real-file").value = data[0].VendorName;
 
             },
             error:function(data) {
