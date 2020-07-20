@@ -5,7 +5,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <title>Asset - In use</title>
-  
+    <link type="text/css" href="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
+    <script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
 </head>
 <body class="sb-nav-fixed">
    
@@ -53,7 +54,7 @@
 
         $('#AssetHeaderTable').DataTable({
             ajax: {
-                url: "/api/GetAlll",
+                url: "/api/getNameLocation",
                 type: "get",
                 dataSrc: ''
             },
@@ -70,8 +71,8 @@
             { data: "ItemID", title: "Asset Code", width: '200px' },
             { data: "NameTH", title: "Asset Name", width: '400px' },
             { data: "NameEN", title: "Description", width: '400px' },
-                { data: "CompanyID", title: "Location"},
-                { data: "OwnerID", title: "Owner" },
+                { data: "CompanyName", title: "Location" },
+                { data: "OwnerName", title: "Owner" },
                 { data: "CostCenter", title: "Cost Center" },
                 { data: "Building", title: "Building" },
                 { data: "Floor", title: "Floor" },

@@ -6,6 +6,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <title>Asset - New Project</title>
+    
 
 </head>
 <body class="sb-nav-fixed">
@@ -144,32 +145,39 @@
     });
     $(document).ready(function () {
 
-        $('#AssetHeaderTable').DataTable({
+        var example = $('#AssetHeaderTable').DataTable({
             scrollX: true,
             ajax: {
-                url: "/Project/GetLine",
+                url: "/api/getNameLocation",
                 type: "get",
                 dataSrc: ''
             },
             columns: [
-
+                {
+                    data: "ID", 
+                    render: function (data, type, row) {
+                        if (type === 'display') {
+                            if (data === true) {
+                                return '<div align="center"><input type="checkbox" checked="checked"></div>';
+                            }
+                            return '<div align="center"><input type="checkbox"></div>';
+                        }
+                        return data;
+                    }, width: '30px'
+                },
                 { data: "ItemID", title: "Asset No." },
                 { data: "NameTH", title: "Description" },
-                { data: "CompanyID", title: "Campus in Dynamics" },
-                { data: "CompanyID", title: "Log in Dynamics" },
-                { data: "CheckStatus", title: "Check Status" },
+                { data: "CompanyName", title: "Location" },
                 { data: "ItemType", title: "Class" },
                 { data: "ItemCate", title: "Cate" },
-                { data: "OwnerName", title: "Owner Name" },
+                { data: "OwnerName", title: "Owner" },
                 { data: "CostCenter", title: "Cost Center" },
                 { data: "Building", title: "Building" },
                 { data: "Floor", title: "Floor" },
-                { data: "FoundInCompany", title: "Found in campus" },
-                { data: "FoundInLocation", title: "Found in location" }
+               
 
 
             ],
-            select: true,
             dom: "Bfrtip",
 
             buttons: [
@@ -181,7 +189,10 @@
                 { extend: "excel" }
 
             ]
+            
+
         });
+
 
 
         $.fn.dataTable.ext.errMode = 'throw';
