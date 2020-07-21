@@ -9,30 +9,30 @@
 </head>
 <body class="sb-nav-fixed">
 
-    <main>
-        <div class="container-fluid">
+<main>
+    <div class="container-fluid">
 
-            <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item"><a href="~/Home/Index">Asset</a></li>
-                <li class="breadcrumb-item active">Register Project</li>
-            </ol>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="~/Home/Index">Asset</a></li>
+            <li class="breadcrumb-item active">Register Project</li>
+        </ol>
 
-            <div class="card mb-4">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-11">
-                        </div>
-                        <div class="col-md-1">
-                            <a value="New" class="btn btn-primary" style="width: 100%; font-size: small" href="~/RegisterProjectr/NewProject"><i class="fas fa-plus-circle"></i>&nbsp;  New</a>
+        <div class="card mb-4">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-11">
+                    </div>
+                    <div class="col-md-1">
+                        <a value="New" class="btn btn-primary" style="width: 100%; font-size: small" href="~/RegisterProjectr/NewProject"><i class="fas fa-plus-circle"></i>&nbsp; New</a>
 
-                        </div>
                     </div>
                 </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered nowrap" id="AssetCountTable" width="100%" cellspacing="0">
-                            <thead>
-                                @*<tr>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered nowrap" id="AssetCountTable" width="100%" cellspacing="0">
+                        <thead>
+                        @*<tr>
                     <th></th>
                     <th>Asset Code</th>
                     <th>Asset Name</th>
@@ -53,83 +53,85 @@
                     <th>Under Maintenance</th>
 
                 </tr>*@
-                            </thead>
+                        </thead>
 
-                            <tbody></tbody>
-                        </table>
-                    </div>
+                        <tbody></tbody>
+                    </table>
                 </div>
             </div>
         </div>
-    </main>
-
-    <script>
-        $(document).ready(function () {
-            $('#AssetCountTable').DataTable({
-                scrollX: true,
-                ajax: {
-                    url: "/project/getall",
-                    type: "get",
-                    dataSrc: ''
-                },
-                columns: [
-                    {
-                        data: 'CountID', render: function (data, type, row) {
-                            return '<div align="center"><a href="/RegisterProjectr/Edit/' + data + '"><i class="far fa-edit fa-2x"></i></a></div>';
-
-                        }, width: '30px'
-
-                    },
-                { data: "CountID", title: "Project Code", width: '100px' },
-                { data: "CountDesc", title: "Description" },
-                    {
-                        data: "CountDate", title: "Project Date", width: '100px' ,
-                        "render": function (data) {
-                            var date = new Date(data);
-                            var month = date.getMonth() + 1;
-                            return (month.toString().length > 1 ? month : "0" + month) + "/" + date.getDate() + "/" + date.getFullYear();
-                        }
-                    },
-                { data: "Status", title: "Status", width: '50px' },
-                { data: "CreatedBy", title: "Created By", width: '200px' },
-                    {
-                        data: "CreatedDate", title: "Created Date", width: '100px',
-                        "render": function (data) {
-                            var date = new Date(data);
-                            var month = date.getMonth() + 1;
-                            return (month.toString().length > 1 ? month : "0" + month) + "/" + date.getDate() + "/" + date.getFullYear();
-                        }
-                    },
-                    {
-                        data: "ModifiedDate", title: "Finish Date", width: '100px',
-                        "render": function (data) {
-                            if (data===null) {
-                                return '<label></label>';
-                            }
-                            var date = new Date(data);
-                            var month = date.getMonth() + 1;
-                            return (month.toString().length > 1 ? month : "0" + month) + "/" + date.getDate() + "/" + date.getFullYear();
-                        }
-                    }
-                ], select: true,
-                dom: "Bfrtip",
-                buttons: [
-                    //{
-                    //    text: "New"
+    </div>
+</main>
 
 
-                    //},
-                    { extend: "excel" }
-
-                ]
-
-            });
-
-
-            $.fn.dataTable.ext.errMode = 'throw';
-        });
-    </script>
 </body>
 
 
 </html>
+<script>
+    $(document).ready(function () {
+        $('#AssetCountTable').DataTable({
+            scrollX: true,
+            ajax: {
+                url: "/project/getall",
+                type: "get",
+                dataSrc: ''
+            },
+            columns: [
+                {
+                    data: 'CountID', render: function (data, type, row) {
+                        return '<div align="center"><a href="/RegisterProjectr/Edit/' + data + '"><i class="far fa-edit fa-2x"></i></a></div>';
+
+                    }, width: '30px'
+
+                },
+            { data: "CountID", title: "Project Code", width: '100px' },
+            { data: "CountDesc", title: "Description" },
+                {
+                    data: "CountDate", title: "Project Date", width: '100px',
+                    "render": function (data) {
+                        var date = new Date(data);
+                        var month = date.getMonth() + 1;
+                        return (month.toString().length > 1 ? month : "0" + month) + "/" + date.getDate() + "/" + date.getFullYear();
+                    }
+                },
+            { data: "Status", title: "Status", width: '50px' },
+            { data: "CreatedBy", title: "Created By", width: '200px' },
+                {
+                    data: "CreatedDate", title: "Created Date", width: '100px',
+                    "render": function (data) {
+                        var date = new Date(data);
+                        var month = date.getMonth() + 1;
+                        return (month.toString().length > 1 ? month : "0" + month) + "/" + date.getDate() + "/" + date.getFullYear();
+                    }
+                },
+                {
+                    data: "ModifiedDate", title: "Finish Date", width: '100px',
+                    "render": function (data) {
+                        if (data === null) {
+                            return '<label></label>';
+                        }
+                        var date = new Date(data);
+                        var month = date.getMonth() + 1;
+                        return (month.toString().length > 1 ? month : "0" + month) + "/" + date.getDate() + "/" + date.getFullYear();
+                    }
+                }
+            ], select: true,
+            dom: "Bfrtip",
+            buttons: [
+                //{
+                //    text: "New"
+
+
+                //},
+                { extend: "excel" }
+
+            ]
+
+        });
+
+
+        $.fn.dataTable.ext.errMode = 'throw';
+    });
+</script>
+

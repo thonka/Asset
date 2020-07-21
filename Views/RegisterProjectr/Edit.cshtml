@@ -116,7 +116,7 @@
         var ProjectDate = $('#ProjectDate').val();
         var Description = $('#Description').val();
 
-        var dataAll = '{CountID: ' + JSON.stringify(ProjectNo) + ',CountDate: ' + JSON.stringify(ProjectDate) + ',CountDesc: ' + JSON.stringify(Description) + '}'
+        var dataAll = '{CountID: ' + JSON.stringify(ProjectNo) + ',CountDate: ' + JSON.stringify(ProjectDate) + ',CountDesc: ' + JSON.stringify(Description) + '}';
 
 
 
@@ -179,57 +179,15 @@
         debugger;
 
     });
-
     $(document).ready(function () {
-
-        $('#AssetHeaderTable').DataTable({
-            scrollX: true,
-            ajax: {
-                url: "/Project/GetLine",
-                type: "get",
-                dataSrc: ''
-            },
-            columns: [
-
-                { data: "ItemID", title: "Asset No." },
-                { data: "NameTH", title: "Description" },
-                { data: "CompanyID", title: "Campus in Dynamics" },
-                { data: "CompanyID", title: "Log in Dynamics" },
-                { data: "CheckStatus", title: "Check Status" },
-                { data: "ItemType", title: "Class" },
-                { data: "ItemCate", title: "Cate" },
-                { data: "OwnerName", title: "Owner Name" },
-                { data: "CostCenter", title: "Cost Center" },
-                { data: "Building", title: "Building" },
-                { data: "Floor", title: "Floor" },
-                { data: "FoundInCompany", title: "Found in campus" },
-                { data: "FoundInLocation", title: "Found in location" }
-
-
-            ],
-            select: true,
-            dom: "Bfrtip",
-
-            buttons: [
-                //{
-                //    text: "New"
-
-
-                //},
-                { extend: "excel" }
-
-            ]
-        });
-
-
-        $.fn.dataTable.ext.errMode = 'throw';
-
-
+       
+        
 
         var id = window.location.pathname.split("/")[3];
-
+        
+        
         $.ajax({
-            type: "GET",
+            
             url: "/Project/GetHeadCountID/",
             data: {
                 id: id
@@ -261,5 +219,71 @@
                 alert("error");
             }
         });
+        $('#AssetHeaderTable').DataTable({
+            scrollX: true,
+            ajax: {
+                type: "GET",
+                url: "/Project/GetLineID/",
+                data: { id: id },
+                dataSrc: ''
+
+            },
+            columns: [
+
+                { data: "ItemID", title: "Asset No." },
+                { data: "NameTH", title: "Description" },
+                { data: "CompanyName", title: "Location" },
+                { data: "CheckStatus", title: "Check Status" },
+                { data: "ItemType", title: "Class" },
+                { data: "ItemCate", title: "Cate" },
+                { data: "OwnerName", title: "Owner Name" },
+                { data: "CostCenter", title: "Cost Center" },
+                { data: "Building", title: "Building" },
+                { data: "Floor", title: "Floor" },
+                {
+                    data: "FoundInCompany", title: "Found", render: function (data, type, row) {
+                        if (type === 'display') {
+                            if (data === "1") {
+                                return '<div align="center"><input type="checkbox" checked="checked"></div>';
+                            }
+                            return '<div align="center"><input type="checkbox"></div>';
+                        }
+                        return data;
+                    }, width: '30px'
+                },
+                {
+                    data: "FoundInLocation", title: "Not Found", render: function (data, type, row) {
+                        if (type === 'display') {
+                            if (data === "1") {
+                                return '<div align="center"><input type="checkbox" checked="checked"></div>';
+                            }
+                            return '<div align="center"><input type="checkbox"></div>';
+                        }
+                        return data;
+                    }, width: '30px'
+                },
+                {
+                    data: "MissLocation", title: "Miss Location", render: function (data, type, row) {
+                        if (type === 'display') {
+                            if (data === "1") {
+                                return '<div align="center"><input type="checkbox" checked="checked"></div>';
+                            }
+                            return '<div align="center"><input type="checkbox"></div>';
+                        }
+                        return data;
+                    }, width: '30px'
+                }
+
+
+            ],
+            select: true,
+            dom: "Bfrtip",
+
+            buttons: [
+                { extend: "excel" }
+
+            ]
+        });
+        
     });
 </script>
