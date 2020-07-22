@@ -20,12 +20,17 @@
             <div class="card mb-12">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-11">
-                        </div>
                         <div class="col-md-1">
-                            <a value="New" class="btn btn-primary" style="width: 100%; font-size: small" href="~/Transfer/New"><i class="fas fa-plus-circle"></i>&nbsp;  New</a>
+                            <a value="History" class="btn btn-warning" style="width: 100%; font-size: small" href="~/Transfer/History"><b>History</b></a>
 
                         </div>
+                        <div class="col-md-10">
+                        </div>
+                        <div class="col-md-1">
+                            <a value="New" class="btn btn-primary" style="width: 100%; font-size: small" href="~/Transfer/New"><i class="fas fa-plus-circle"></i>&nbsp; New</a>
+
+                        </div>
+
                     </div>
 
 
@@ -84,7 +89,16 @@
                     },
                     { data: "DocumentInfo", title: "Department" },
                     { data: "CreatedBy", title: "Created By" },
-                    { data: "CreatedDate", title: "Created Date" }
+                    {
+                        data: "CreatedDate", title: "Created Date", render: function (data) {
+                            if (data !== null) {
+                                var date = new Date(data);
+                                var month = date.getMonth() + 1;
+                                return (month.toString().length > 1 ? month : "0" + month) + "/" + date.getDate() + "/" + date.getFullYear();
+                            }
+                            return null;
+                        }, width: "100px"
+                    }
 
 
                 

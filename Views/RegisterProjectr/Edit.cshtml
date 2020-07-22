@@ -23,15 +23,15 @@
 
                                 <div class="row">
                                     <span style="padding: 0rem 1rem 0.5rem 0rem">Project No.</span>
-                                    <input type="text" class="form-control " style="width: 100%" id="ProjectNo"  />
+                                    <input type="text" class="form-control " style="width: 100%" id="ProjectNo"  disabled/>
                                 </div>
                                 <div class="row">
                                     <span style="padding: 1rem 1rem 0.5rem 0rem">Project Date</span>
-                                    <input type="date" class="form-control " style="width: 100%" id="ProjectDate" />
+                                    <input type="date" class="form-control " style="width: 100%" id="ProjectDate" disabled />
                                 </div>
                                 <div class="row">
                                     <span style="padding: 1rem 1rem 0.5rem 0rem">Description</span>
-                                    <textarea class="form-control" style="width: 100%" id="Description"></textarea>
+                                    <textarea class="form-control" style="width: 100%" id="Description" disabled></textarea>
                                 </div>
                                 <hr />
                                 <div class="row">
@@ -93,15 +93,16 @@
 
 </html>
 
-   
+
 
 
 
 <script >
-   
+    
+    var ProjectNo = $("#ProjectNo").val();
+    var ProjectDate = $('#ProjectDate').val();
+    var Description = $('#Description').val();
     $("#btnDel").click(function () {
-
-        var ProjectNo = $("#ProjectNo").val();
 
         $.ajax({
             type: "POST",
@@ -110,49 +111,17 @@
         alert("Delete : Success");
         window.location.href = "/RegisterProjectr/RegisterProject";
     });
-    $("#btnGet").click(function () {
-
-        var ProjectNo = $("#ProjectNo").val();
-        var ProjectDate = $('#ProjectDate').val();
-        var Description = $('#Description').val();
-
-        var dataAll = '{CountID: ' + JSON.stringify(ProjectNo) + ',CountDate: ' + JSON.stringify(ProjectDate) + ',CountDesc: ' + JSON.stringify(Description) + '}';
-
-
-
-        $.ajax({
-            type: "POST",
-            url: "/Project/Create",
-            data: dataAll,
-
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                alert("Succuss ");
-                debugger;
-            },
-            failure: function (response) {
-                alert(response.data);
-            },
-            error: function (response) {
-                alert("Success");
-                window.location.href = "/RegisterProjectr/RegisterProject";
-            }
-        });
-        debugger;
-        
-    });
+    
+    
 
 
     $("#btnFinish").click(function () {
-
         var ProjectNo = $("#ProjectNo").val();
         var ProjectDate = $('#ProjectDate').val();
         var Description = $('#Description').val();
+        
         var Status = "CLOSE";
-        //var FinishDate = Date(Date.now());
         var today = new Date();
-
         var dataAll = '{CountID: ' + JSON.stringify(ProjectNo) + ',CountDate: ' + JSON.stringify(ProjectDate) + ',CountDesc: ' + JSON.stringify(Description) + ',Status: ' + JSON.stringify(Status) + ',ModifiedDate: ' + JSON.stringify(today) + '}';
 
 
@@ -179,10 +148,70 @@
         debugger;
 
     });
-    $(document).ready(function () {
-       
-        
+    $('#AssetHeaderTable tbody').on('click', 'tr', function () {
+        $(this).toggleClass('checkbox');
+    });
 
+    $(document).ready(function () {
+        //var AssetTable;
+        //$("#btnGet").click(function () {
+        //    var rowData = AssetTable.rows('.checkbox').data().toArray();
+        //    var obj = jQuery.parseJSON(JSON.stringify(rowData));
+        //    var result = new Array();
+        //    for (var i = 0; i < obj.length; i++) {
+        //        var LLocation = obj[i].CompanyID;
+        //        var LitemID = obj[i].ItemID;
+        //        var Lname = obj[i].NameTH;
+        //        var LClass = obj[i].ItemCate;
+        //        var LSubClass = obj[i].ItemType;
+        //        var LCostCenter = obj[i].CostCenter;
+        //        var Building = obj[i].Building;
+        //        var Floor = obj[i].Floor;
+        //        var Owner = obj[i].OwnerID;
+        //        var Project = obj[i].CountID;
+        //        var CountUniq = obj[i].CompanyID + i;
+        //        var idFC = '#FC' + obj[i].ID;
+        //        var check1 = $(idFC).is(":checked");
+        //        var idFL = '#FL' + obj[i].ID;
+        //        var check2 = $(idFL).is(":checked");
+        //        var idML = '#ML' + obj[i].ID;
+        //        var check3 = $(idML).is(":checked");
+
+
+                
+
+        //        var dataPost = { CompanyID: LLocation, CountID: Project, ItemID: LitemID, NameTH: Lname, ItemCate: LClass, ItemType: LSubClass, CurrentSysLocation: LCostCenter, CostCenter: LCostCenter, Building: Building, Floor: Floor, Owner: Owner, CountUniqID: CountUniq, FoundInCompany: check1, FoundInLocation: check2, MissLocation: check3 };
+        //        debugger;
+        //        result.push(dataPost);
+
+                
+
+        //    }
+        //    debugger;
+        //    var resultAll = JSON.stringify(result);
+        //    $.ajax({
+        //        type: "POST",
+        //        url: "/Project/CreateLineTable",
+        //        data: resultAll,
+
+        //        contentType: "application/json; charset=utf-8",
+        //        dataType: "json",
+        //        success: function (response) {
+        //            alert("Succuss ");
+        //            debugger;
+        //        },
+        //        failure: function (response) {
+
+        //        },
+        //        error: function (response) {
+
+        //            //window.location.href = "/RegisterProjectr/RegisterProject";
+        //        }
+        //    });
+        //    debugger;
+
+        //});
+        
         var id = window.location.pathname.split("/")[3];
         
         
@@ -219,7 +248,7 @@
                 alert("error");
             }
         });
-        $('#AssetHeaderTable').DataTable({
+        AssetTable = $('#AssetHeaderTable').DataTable({
             scrollX: true,
             ajax: {
                 type: "GET",
@@ -229,7 +258,15 @@
 
             },
             columns: [
-
+                {
+                    data: "ID",
+                    render: function (data, type, row) {
+                        if (type === 'display') {
+                            return '<div align="center"><input type="checkbox" checked="checked"  disabled></div>';
+                        }
+                        return data;
+                    }, width: '30px'
+                },
                 { data: "ItemID", title: "Asset No." },
                 { data: "NameTH", title: "Description" },
                 { data: "CompanyName", title: "Location" },
@@ -243,21 +280,22 @@
                 {
                     data: "FoundInCompany", title: "Found", render: function (data, type, row) {
                         if (type === 'display') {
-                            if (data === "1") {
-                                return '<div align="center"><input type="checkbox" checked="checked"></div>';
+                            if (data === true) {
+                                return '<div align="center"><input type="checkbox" checked="checked" id="FC' + row.ID + '" ></div>';
                             }
-                            return '<div align="center"><input type="checkbox"></div>';
+                            return '<div align="center"><input type="checkbox" id="FC' + row.ID + '" ></div>';
                         }
                         return data;
                     }, width: '30px'
                 },
                 {
                     data: "FoundInLocation", title: "Not Found", render: function (data, type, row) {
+                        console.log(row);
                         if (type === 'display') {
-                            if (data === "1") {
-                                return '<div align="center"><input type="checkbox" checked="checked"></div>';
+                            if (data === true) {
+                                return '<div align="center"><input id="FL' + row.ID + '" type="checkbox" checked="checked"></div>';
                             }
-                            return '<div align="center"><input type="checkbox"></div>';
+                            return '<div align="center"><input id="FL'+row.ID+'" type="checkbox"></div>';
                         }
                         return data;
                     }, width: '30px'
@@ -265,18 +303,18 @@
                 {
                     data: "MissLocation", title: "Miss Location", render: function (data, type, row) {
                         if (type === 'display') {
-                            if (data === "1") {
-                                return '<div align="center"><input type="checkbox" checked="checked"></div>';
+                            if (data === true) {
+                                return '<div align="center"><input type="checkbox" checked="checked" id="ML' + row.ID + '"></div>';
                             }
-                            return '<div align="center"><input type="checkbox"></div>';
+                            return '<div align="center"><input type="checkbox" id="ML' + row.ID + '"></div>';
                         }
                         return data;
                     }, width: '30px'
                 }
-
+                
 
             ],
-            select: true,
+            select: false,
             dom: "Bfrtip",
 
             buttons: [
@@ -284,6 +322,6 @@
 
             ]
         });
-        
     });
+
 </script>

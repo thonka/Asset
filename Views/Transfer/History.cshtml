@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <title>Transfer - History</title>
+
+</head>
+<body class="sb-nav-fixed">
+
+    <main>
+        <div class="container-fluid">
+
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item"><a href="~/Home/Index">Asset</a></li>
+                <li class="breadcrumb-item"><a href="~/Transfer/Transfer">Transfer</a></li>
+                <li class="breadcrumb-item active">History</li>
+            </ol>
+
+            <div class="card mb-12">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <a value="Back" class="btn btn-dark" style="width: 100%; font-size: small" href="~/Transfer/Transfer"><i class="fas fa-angle-left"></i><b>&nbsp; Back</b></a>
+
+                        </div>
+                        <div class="col-md-10">
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered nowrap" id="AssetHeaderTable" width="100%" cellspacing="0">
+                            <thead>
+
+
+
+                            </thead>
+
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+
+        $(document).ready(function () {
+
+
+            $('#AssetHeaderTable').DataTable({
+                ajax: {
+                    url: "/transferapi/GetHistory",
+                    type: "get",
+                    dataSrc: ''
+                },
+                columns: [
+                { data: "ProdID", title: "Transfer No.",width:"100px" },
+                { data: "ItemID", title: "Asset No.", width: "200px" },
+                { data: "ItemName", title: "Description" },
+                { data: "CompanyID", title: "Location From" },
+                { data: "CostCenter", title: "Location To" },
+                { data: "ItemCateID", title: "Class" },
+                { data: "ItemTypeID", title: "Sub Class" },
+                {
+                    data: "ProdDate", title: "Transfer Date", render: function (data) {
+                        if (data !== null) {
+                            var date = new Date(data);
+                            var month = date.getMonth() + 1;
+                            return (month.toString().length > 1 ? month : "0" + month) + "/" + date.getDate() + "/" + date.getFullYear();
+                        }
+                        return null;
+                    }, width: "100px"
+                }
+
+
+
+
+                ],
+                select: false,
+                dom: "Bfrtip",
+
+                buttons: [
+                    //{
+                    //    text: "New"
+
+
+                    //},
+                    { extend: "excel" }
+
+                ],
+                scrollX: true,
+            });
+
+            $.fn.dataTable.ext.errMode = 'throw';
+        });
+    </script>
+</body>
+
+
+</html>
