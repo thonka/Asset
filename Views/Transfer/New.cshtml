@@ -287,7 +287,57 @@
                         
                     },
                     error: function (response) {
-                        window.location.href = "/Transfer/Transfer";
+                        //window.location.href = "/Transfer/Transfer";
+                    }
+
+                });
+                var LocationTo = $('#LocationTo').val();
+                var AssetCode = obj[i].ItemID;
+                var StickerName = obj[i].NameEN();
+                var AssetName = obj[i].NameTH;
+
+                var Location = LocationTo;
+                var Department = obj[i].Department;
+                var Owner = obj[i].OwnerID;
+
+                var CostCenter = obj[i].CostCenter;
+                var RefCode = obj[i].RefID;
+
+                var PurchaseDate = obj[i].PurchaseDate;;
+                var UseDate = obj[i].UseDate;
+                var ExpireDate = obj[i].ExpireDate;
+                var WarrantyDate = obj[i].WarrantyDate;
+                var NextServiceDate = obj[i].NextServiceDate;
+                var DisposalDate = obj[i].DisposalDate;
+
+                var Building = obj[i].Building;
+                var Floor = obj[i].Floor;
+                var Room = obj[i].Room;
+                var isInsured = obj[i].IsInsured;
+                var isUnderMaintenance = obj[i].IsUnderMaintenance;
+                var realfile = obj[i].VendorName;
+
+
+                var snedData = { ItemID: AssetCode, NameTH: AssetName, NameEN: StickerName, CompanyID: Location, Department: Department, OwnerID: Owner, CostCenter: CostCenter, UseDate: UseDate, PurchaseDate: PurchaseDate, ExpireDate: ExpireDate, WarrantyDate: WarrantyDate, NextServiceDate: NextServiceDate, DisposalDate: DisposalDate, IsInsured: isInsured, IsUnderMaintenance: isUnderMaintenance, Building: Building, Floor: Floor, Room: Room, RefID: RefCode, VendorName: realfile }
+
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/api/New",
+                    data: snedData,
+
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function () {
+                        alert("Succuss ");
+
+                    },
+                    failure: function (response) {
+                        alert(response.data);
+                    },
+                    error: function (response) {
+                        //window.location.href = "/AssetInuse/Inuse";
                     }
 
                 });

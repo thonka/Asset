@@ -193,6 +193,7 @@
             var rowData = AssetTable.rows('.checkbox').data().toArray();
             var obj = jQuery.parseJSON(JSON.stringify(rowData));
             for (var i = 0; i < obj.length; i++) {
+
                 var LLocation = obj[i].CompanyID;
                 var LitemID = obj[i].ItemID;
                 var Lname = obj[i].NameTH;
