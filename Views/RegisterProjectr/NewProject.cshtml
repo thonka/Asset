@@ -202,7 +202,8 @@
                 var Building = obj[i].Building;
                 var Floor = obj[i].Floor;
                 var Owner = obj[i].OwnerID;
-                var CountUniq = obj[i].CompanyID + i;
+                var projectNo = $("#ProjectNo").val();
+                var CountUniq = projectNo + i;
                 $.ajax({
                     type: "POST",
                     url: "/Project/CreateLineTable",

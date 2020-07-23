@@ -200,10 +200,7 @@
                 { data: "ItemCate", title: "Class" },
                 { data: "ItemType", title: "Sub Class" },
                 {
-                    data: "BeginQty", title: "Quantity"
-                },
-                {
-                    data: "Remark2", title: "Unit", render: function (data, type, row) {
+                    data: "Unit", title: "Unit", render: function (data, type, row) {
                        
 
                         return data;
@@ -273,13 +270,12 @@
                 var Lname = obj[i].NameTH;
                 var LClass = obj[i].ItemCate;
                 var LSubClass = obj[i].ItemType;
-                var LQty = obj[i].BeginQty;
-                var LUnit = obj[i].Remark2;
+                var Unit = obj[i].Unit;
 
                 $.ajax({
                     type: "POST",
                     url: "/transferapi/transferLine",
-                    data: '{ProdID: ' + JSON.stringify(TransferNo) + ',ProdDate: ' + JSON.stringify(TransferDate) + ',CompanyID: ' + JSON.stringify(LocationFrom) + ',CostCenter: ' + JSON.stringify(LocationTo) + ',DocTypeID: ' + JSON.stringify(Department) + ',ItemID: ' + JSON.stringify(LitemID) + ',ItemName: ' + JSON.stringify(Lname) + ',ItemCateID: ' + JSON.stringify(LClass) + ',ItemTypeID: ' + JSON.stringify(LSubClass) + ',QtyOrder: ' + JSON.stringify(LQty) + ',Packaging: ' + JSON.stringify(LUnit) + '}',
+                    data: '{ProdID: ' + JSON.stringify(TransferNo) + ',ProdDate: ' + JSON.stringify(TransferDate) + ',CompanyID: ' + JSON.stringify(LocationFrom) + ',CostCenter: ' + JSON.stringify(LocationTo) + ',DocTypeID: ' + JSON.stringify(Department) + ',ItemID: ' + JSON.stringify(LitemID) + ',ItemName: ' + JSON.stringify(Lname) + ',ItemCateID: ' + JSON.stringify(LClass) + ',ItemTypeID: ' + JSON.stringify(LSubClass) + ',Packaging: ' + JSON.stringify(Unit) + '}',
 
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",

@@ -73,7 +73,6 @@
                 },
                 { data: "CompanyID", title: "Location ID", width: '100px' },
                 { data: "Name1", title: "Location Name" },
-                { data: "ParentID", title: "Root", width: '100px' }
             ],
             select: true,
             dom: "Bfrtip",
@@ -93,34 +92,6 @@
     });
 </script>
 
-
-    <script>
-        $(document).ready(function () {
-            $.ajax({
-                type: "GET",
-                url: "/api/getAlllocation",
-                data: '{}',
-                success: function (data) {
-                    var s = '<option value="-1"></option>';
-                    var c = '<option value="-1"></option>';
-
-                    for (var i = 0; i < data.length; i++) {
-                        if (data[i].ParentID !== "") {
-                            s += '<option value="' + data[i].ParentID + '">' + data[i].ParentID + ' | ' + data[i].Name1 + '</option>';
-                            c += '<option value="' + data[i].CompanyID + '">' + data[i].CompanyID + ' | ' + data[i].Name1 + '</option>';
-                        }
-                    }
-                    $("#LocationDropdown").html(s);
-                    $("#CostDropdown").html(c);
-                }
-            });
-
-
-
-        });
-
-
-    </script>
 </body>
 
 

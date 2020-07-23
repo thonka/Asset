@@ -78,10 +78,6 @@
                                                                 <input type="text" class="form-control " style="width: 100%" id="LocationName"/>
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <span>Root</span><span style="color: red">&nbsp; ***</span>
-                                                                <select class="form-control" id="LocationDropdown"></select>
-                                                            </div>
-                                                            <div class="col-md-3">
 
                                                                     <span>ORG. LEVEL &nbsp;</span>
                                                                 <select id="cboTypeID" class="form-control ">
@@ -133,22 +129,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-    $.ajax({
-        type: "GET",
-        url: "/api/getAlllocation",
-        data: '{}',
-        success: function (data) {
-            var s = '<option></option>';
-
-            for (var i = 0; i < data.length; i++) {
-                if (data[i].ParentID !== "") {
-                    s += '<option value="' + data[i].CompanyID + '">' + data[i].CompanyID + ' | ' + data[i].Name1 + '</option>';
-                }
-            }
-            $("#LocationDropdown").html(s);
-        }
-    });
-
+    
     var id = window.location.pathname.split("/")[3];
     $.ajax({
         type: "GET",
@@ -159,14 +140,9 @@
         success: function (data) {
             console.log(data);
             debugger;
-
-
-
-
             document.getElementById("LocationID").value = data[0].CompanyID;
             document.getElementById("LocationName").value = data[0].Name1;
             document.getElementById("cboTypeID").value = data[0].TypeID;
-            document.getElementById("LocationDropdown").value = data[0].ParentID;
 
         },
         error: function (data) {
@@ -180,10 +156,9 @@
         var LocationID = $("#LocationID").val();
         var LocationName = $('#LocationName').val();
         var cboTypeID = $('#cboTypeID').val();
-        var Root = $('#LocationDropdown').val();
 
 
-        var dataAll = '{CompanyID: ' + JSON.stringify(LocationID) + ',Name1: ' + JSON.stringify(LocationName) + ',TypeID: ' + JSON.stringify(cboTypeID) + ',ParentID: ' + JSON.stringify(Root) + '}';
+        var dataAll = '{CompanyID: ' + JSON.stringify(LocationID) + ',Name1: ' + JSON.stringify(LocationName) + ',TypeID: ' + JSON.stringify(cboTypeID)  + '}';
 
 
 

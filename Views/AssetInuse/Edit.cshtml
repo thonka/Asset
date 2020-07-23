@@ -297,12 +297,12 @@
         var Building = $('#Building').val();
         var Floor = $('#Floor').val();
         var Room = $('#Room').val();
-        var Insured = $('#Insured').val();
-        var UnderMaintenance = $('#UnderMaintenance').val();
+        var isInsured = $('#Insured').is(":checked");
+        var isUnderMaintenance = $('#UnderMaintenance').is(":checked");
         var realfile = $('#real-file').val();
 
 
-        var snedData = { ItemID: AssetCode, NameTH: AssetName, NameEN: StickerName, CompanyID: Location, Department: Department, OwnerID: Owner, CostCenter: CostCenter, UseDate: UseDate, PurchaseDate: PurchaseDate, ExpireDate: ExpireDate, WarrantyDate: WarrantyDate, NextServiceDate: NextServiceDate, DisposalDate: DisposalDate, IsInsured: Insured, IsUnderMaintenance: UnderMaintenance, Building: Building, Floor: Floor, Room: Room, RefID: RefCode, VendorName: realfile }
+        var snedData = { ItemID: AssetCode, NameTH: AssetName, NameEN: StickerName, CompanyID: Location, Department: Department, OwnerID: Owner, CostCenter: CostCenter, UseDate: UseDate, PurchaseDate: PurchaseDate, ExpireDate: ExpireDate, WarrantyDate: WarrantyDate, NextServiceDate: NextServiceDate, DisposalDate: DisposalDate, IsInsured: isInsured, IsUnderMaintenance: isUnderMaintenance, Building: Building, Floor: Floor, Room: Room, RefID: RefCode, VendorName: realfile }
 
 
 
