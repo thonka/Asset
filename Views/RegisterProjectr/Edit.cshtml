@@ -153,23 +153,23 @@
     });
 
     $(document).ready(function () {
-        //var AssetTable;
         $("#btnGet").click(function () {
-            var rowData = AssetTable.rows('.checkbox').data().toArray();
+            var rowData = assetTable.rows('.checkbox').data().toArray();
             var obj = jQuery.parseJSON(JSON.stringify(rowData));
             var result = new Array();
             for (var i = 0; i < obj.length; i++) {
-                var LLocation = obj[i].CompanyID;
-                var LitemID = obj[i].ItemID;
-                var Lname = obj[i].NameTH;
-                var LClass = obj[i].ItemCate;
-                var LSubClass = obj[i].ItemType;
-                var LCostCenter = obj[i].CostCenter;
-                var Building = obj[i].Building;
-                var Floor = obj[i].Floor;
-                var Owner = obj[i].OwnerID;
-                var ProjectNo = obj[i].CountID;
-                var CountUniq = obj[i].CountUniqID;
+                var lLocation = obj[i].CompanyID;
+                var projectNo = obj[i].CountID;
+                var countUniq = obj[i].CountUniqID;
+                var ltemID = obj[i].ItemID;
+                var lname = obj[i].NameTH;
+                var lClass = obj[i].ItemCate;
+                var lSubClass = obj[i].ItemType;
+                var lCostCenter = obj[i].CostCenter;
+                var building = obj[i].Building;
+                var floor = obj[i].Floor;
+                var owner = obj[i].OwnerID;
+                
                 var idFC = '#FC' + obj[i].ID;
                 var check1 = $(idFC).is(":checked");
                 var idFL = '#FL' + obj[i].ID;
@@ -178,54 +178,26 @@
                 var check3 = $(idML).is(":checked");
 
 
-                
-
-        //        var dataPost = { CompanyID: LLocation, CountID: Project, ItemID: LitemID, NameTH: Lname, ItemCate: LClass, ItemType: LSubClass, CurrentSysLocation: LCostCenter, CostCenter: LCostCenter, Building: Building, Floor: Floor, Owner: Owner, FoundInCompany: check1, FoundInLocation: check2, MissLocation: check3 };
-        //        debugger;
-        //        result.push(dataPost);
-
                 debugger;
                 $.ajax({
                     type: "POST",
                     url: "/Project/Update",
-                    data: '{ItemID: ' + JSON.stringify(LitemID) + ',FoundInCompany: ' + JSON.stringify(check1) + ',FoundInLocation: ' + JSON.stringify(check2) + ',MissLocation: ' + JSON.stringify(check3) + '}',
+                    data: '{CompanyID: ' + JSON.stringify(lLocation) + ',CountID: ' + JSON.stringify(projectNo) + ',CountUniqID: ' + JSON.stringify(countUniq) + ',ItemID: ' + JSON.stringify(ltemID) + ',NameTH: ' + JSON.stringify(lname) + ',ItemCate: ' + JSON.stringify(lClass) + ',ItemType: ' + JSON.stringify(lSubClass) + ',CostCenter: ' + JSON.stringify(lCostCenter) + ',Building: ' + JSON.stringify(building) + ',Floor: ' + JSON.stringify(floor) + ',OwnerID: ' + JSON.stringify(owner) + ',FoundInCompany: ' + JSON.stringify(check1) + ',FoundInLocation: ' + JSON.stringify(check2) + ',IsUnderMaintenance: ' + JSON.stringify(check3) + '}',
 
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {
-                        alert("Succuss ");
-                        debugger;
+                        
                     },
                     failure: function (response) {
 
                     },
                     error: function (response) {
-                        window.location.href = "/RegisterProjectr/RegisterProject";
+                        
                     }
                 });
             }
-        //    debugger;
-        //    var resultAll = JSON.stringify(result);
-        //    $.ajax({
-        //        type: "POST",
-        //        url: "/Project/CreateLineTable",
-        //        data: resultAll,
-
-        //        contentType: "application/json; charset=utf-8",
-        //        dataType: "json",
-        //        success: function (response) {
-        //            alert("Succuss ");
-        //            debugger;
-        //        },
-        //        failure: function (response) {
-
-        //        },
-        //        error: function (response) {
-
-        //            //window.location.href = "/RegisterProjectr/RegisterProject";
-        //        }
-        //    });
-            debugger;
+            window.location.href = "/RegisterProjectr/RegisterProject";
 
         });
         
@@ -265,7 +237,7 @@
                 alert("error");
             }
         });
-        AssetTable = $('#AssetHeaderTable').DataTable({
+        var assetTable = $('#AssetHeaderTable').DataTable({
             scrollX: true,
             ajax: {
                 type: "GET",
@@ -318,7 +290,7 @@
                     }, width: '30px'
                 },
                 {
-                    data: "MissLocation", title: "Miss Location", render: function (data, type, row) {
+                    data: "IsUnderMaintenance", title: "Miss Location", render: function (data, type, row) {
                         if (type === 'display') {
                             if (data === true) {
                                 return '<div align="center"><input id="ML' + row.ID + '" type="checkbox" checked="checked"></div>';

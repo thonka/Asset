@@ -266,6 +266,7 @@
             var rowData = AssetTable.rows('.checkbox').data().toArray();
             var obj = jQuery.parseJSON(JSON.stringify(rowData));
             for (var i = 0; i < obj.length; i++) {
+                var idList = obj[i].ID;
                 var LitemID = obj[i].ItemID;
                 var Lname = obj[i].NameTH;
                 var LClass = obj[i].ItemCate;
@@ -291,9 +292,30 @@
                     }
 
                 });
+                var locationTo = $('#LocationTo').val();
+                $.ajax({
+
+                    type: "POST",
+                    url: "/transferapi/Update",
+                    data: '{ID: ' + JSON.stringify(idList) + ',CompanyID: ' + JSON.stringify(locationTo) + '}',
+
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        alert("Succuss ");
+                        debugger;
+                    },
+                    failure: function (response) {
+
+                    },
+                    error: function (response) {
+                        //window.location.href = "/Transfer/Transfer";
+                    }
+
+                });
                 var LocationTo = $('#LocationTo').val();
                 var AssetCode = obj[i].ItemID;
-                var StickerName = obj[i].NameEN();
+                var StickerName = obj[i].NameEN;
                 var AssetName = obj[i].NameTH;
 
                 var Location = LocationTo;
